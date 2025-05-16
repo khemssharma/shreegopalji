@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shri Gopalji Infratech Pvt. Ltd.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f5f7fa;
+      color: #333;
+    }
+    header {
+      background: url('hero-bg.jpg') no-repeat center center/cover;
+      color: white;
+      text-align: center;
+      padding: 100px 20px 60px;
+    }
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      color: black
+    }
+    nav {
+      position: sticky;
+      top: 0;
+      background: #003366;
+      padding: 10px 0;
+      z-index: 1000;
+    }
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      gap: 2rem;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    section {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 30px;
+    }
+    .services, .projects, .why-us {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card i {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #003366;
+    }
+    .contact form {
+      display: grid;
+      gap: 15px;
+    }
+    .contact input, .contact textarea {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .contact button {
+      background: #003366;
+      color: white;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    footer {
+      background: #003366;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    header p {
+      color: black
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Shri Gopalji Infratech Pvt. Ltd.</h1>
+    <p>Delivering Excellence in Infrastructure Development</p>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section id="about">
+    <h2 class="section-title">About Us</h2>
+    <p>
+      Shri Gopalji Infratech Pvt. Ltd. is a reputed construction and infrastructure company in India known for its high-quality, timely-delivered projects including highways, bridges, commercial complexes, and industrial infrastructure.
+    </p>
+  </section>
+
+  <section id="services">
+    <h2 class="section-title">Our Services</h2>
+    <div class="services">
+      <div class="card">
+        <i class="fas fa-road"></i>
+        <h3>Highway Construction</h3>
+        <p>Expertise in national and state highway development using modern machinery and materials.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-building"></i>
+        <h3>Commercial Buildings</h3>
+        <p>We construct cutting-edge office spaces, malls, and business centers.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-warehouse"></i>
+        <h3>Industrial Infrastructure</h3>
+        <p>Reliable solutions for factories, storage, and processing units.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2 class="section-title">Our Projects</h2>
+    <div class="projects">
+      <div class="card">
+        <img src="project1.jpg" alt="Project 1" style="width: 100%; border-radius: 8px;">
+        <h3>4-Lane Expressway</h3>
+        <p>Completed a high-speed corridor under NHAI standards.</p>
+      </div>
+      <div class="card">
+        <img src="project2.jpg" alt="Project 2" style="width: 100%; border-radius: 8px;">
+        <h3>Bridge Over River</h3>
+        <p>A milestone bridge project improving state connectivity.</p>
+      </div>
+      <div class="card">
+        <img src="project3.jpg" alt="Project 3" style="width: 100%; border-radius: 8px;">
+        <h3>Industrial Estate</h3>
+        <p>Developed a modern industrial area with all civic amenities.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2 class="section-title">Contact Us</h2>
+    <form>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Email Address" required>
+      <textarea rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>© 2025 Shri Gopalji Infratech Pvt. Ltd. All rights reserved.</p>
+  </footer>
+</body>
+</html>
