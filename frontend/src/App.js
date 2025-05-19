@@ -1,5 +1,3 @@
-// Importing React and CSS
-import './App.css';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import About from './components/About';
@@ -14,6 +12,7 @@ import Gallery from './components/Gallery';
 import Events from './components/Events';
 import News from './components/News';
 import FAQs from './components/FAQs';
+import AdminPage from './components/Admin';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -34,6 +33,7 @@ function App() {
           <Route path='/events' element={<Events/>} />
           <Route path='/news' element={<News/>} />
           <Route path='/faqs' element={<FAQs/>} />
+          <Route path='/admin' element={<AdminPage/>}/>
         </Routes>
         <Footer />
       </div>
