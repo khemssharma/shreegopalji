@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { registerUser } from "../store/slices/authSlice";
-
 const SignUp = () => {
     const [form, setForm] = useState({
         name: "",
@@ -17,7 +14,6 @@ const SignUp = () => {
         setForm({ ...form, [e.target.name]: e.target.value });
         setError("");
     };
-    const dispatch = useDispatch();
     const handleSubmit = (e) => {
         e.preventDefault();
         if (
