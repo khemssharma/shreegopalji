@@ -13,7 +13,9 @@ import Events from './components/Events';
 import News from './components/News';
 import FAQs from './components/FAQs';
 import AdminPage from './components/Admin';
+import SignUp from './components/SignUp';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import ManagementLogin from './components/ManagementLogin';
 
 function App() {
   return (
@@ -34,6 +36,8 @@ function App() {
           <Route path='/news' element={<News/>} />
           <Route path='/faqs' element={<FAQs/>} />
           <Route path='/admin' element={<AdminPage/>}/>
+          <Route path='/login' element={<ManagementLogin/>}></Route>
+          <Route path='/signup' element={<SignUp/>}></Route>
         </Routes>
         <Footer />
       </div>
