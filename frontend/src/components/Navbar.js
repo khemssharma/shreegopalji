@@ -14,7 +14,7 @@ const Navbar = () => {
     Projects: [
       { label: "Ongoing", href: "/projects#ongoing" },
       { label: "Completed", href: "/projects#completed" },
-      { label: "Management", href: "/login" }
+      { label: "Management", href: "/dashboard" }
     ],
     Services: [
       { label: "Consulting", href: "/services#consulting" },

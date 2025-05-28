@@ -14,10 +14,13 @@ import News from './components/News';
 import FAQs from './components/FAQs';
 import AdminPage from './components/Admin';
 import SignUp from './components/SignUp';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Dashboard from './components/Dashboard';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import ManagementLogin from './components/ManagementLogin';
+import useStore from './store/useAuthStore';
 
 function App() {
+  const { token } = useStore();
   return (
     <Router>
       <div className="App">
@@ -36,8 +39,11 @@ function App() {
           <Route path='/news' element={<News/>} />
           <Route path='/faqs' element={<FAQs/>} />
           <Route path='/admin' element={<AdminPage/>}/>
-          <Route path='/login' element={<ManagementLogin/>}></Route>
-          <Route path='/signup' element={<SignUp/>}></Route>
+          
+          <Route path='/dashboard' element={token ? <Dashboard />:  <Navigate to="/login" />}></Route>
+          <Route path='/signup' element={!token ? <SignUp/> : <Navigate to="/dashboard" />}></Route>
+          <Route path='/login' element={!token ? <ManagementLogin/> : <Navigate to="/dashboard" />}></Route>
+
         </Routes>
         <Footer />
       </div>

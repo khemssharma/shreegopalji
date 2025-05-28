@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-
+import useStore from "../store/useAuthStore";
+import { useNavigate } from "react-router-dom";
 const styles = {
     container: {
         minHeight: "100vh",
@@ -72,46 +73,26 @@ const styles = {
 
 export default function ManagementLogin() {
     const [form, setForm] = useState({ username: "", password: "" });
-    const [error, setError] = useState("");
+    const { login, loading, error } = useStore();
+    const [localError, setLocalError] = useState("");
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
-        setError("");
+        setLocalError("");
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!form.username || !form.password) {
-            setError("Please enter both username and password.");
+            setLocalError("Please enter both username and password.");
             return;
         }
-        try {
-            const response = await fetch("https://shreegopalji.onrender.com/api/auth/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    email: form.username, // assuming username is email
-                    password: form.password,
-                }),
-            });
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                setError(data.message || "Login failed.");
-                return;
-            }
-
-            // Save token to localStorage/sessionStorage if needed
-            localStorage.setItem("token", data.token);
-
-            // Redirect or update UI as needed
-            alert("Login successful!");
-            // window.location.href = "/dashboard"; // Example redirect
-        } catch (err) {
-            setError("Network error. Please try again.");
+        const success = await login(form.username, form.password);
+        if (success) {
+            navigate("/dashboard");
+        } else {
+            setLocalError("Login failed. Please check your credentials.");
         }
     };
 
@@ -145,9 +126,11 @@ export default function ManagementLogin() {
                     value={form.password}
                     onChange={handleChange}
                 />
-                {error && <div style={styles.error}>{error}</div>}
-                <button style={styles.button} type="submit">
-                    Login
+                {(localError || error) && (
+                    <div style={styles.error}>{localError || error}</div>
+                )}
+                <button style={styles.button} type="submit" disabled={loading}>
+                    {loading ? "Logging in..." : "Login"}
                 </button>
                 <div style={styles.footer}>
                     © {new Date().getFullYear()} Shree Gopalji Infratech Pvt. Ltd.<br />
