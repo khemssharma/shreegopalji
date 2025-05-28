@@ -222,6 +222,9 @@ const styles = {
         fontSize: "1rem",
         outline: "none",
         transition: "border 0.2s",
+        width: "90%", // Make input a little less wide
+        margin: "0 auto",
+        boxSizing: "border-box",
     },
     button: {
         padding: "0.75rem",
@@ -254,6 +257,16 @@ const styles = {
         color: "#7b8a99",
         fontSize: "0.95rem",
         textAlign: "center",
+    },
+    // Responsive styles for mobile
+    '@media (max-width: 600px)': {
+        card: {
+            maxWidth: "95vw",
+            padding: "1.5rem 0.5rem",
+        },
+        input: {
+            width: "95%",
+        },
     },
 };
 

@@ -36,7 +36,8 @@ const styles = {
         marginBottom: "2rem",
     },
     input: {
-        width: "100%",
+        width: "90%",
+        maxWidth: "320px",
         padding: "0.75rem",
         margin: "0.5rem 0",
         borderRadius: "8px",
@@ -44,9 +45,11 @@ const styles = {
         fontSize: "1rem",
         outline: "none",
         transition: "border 0.2s",
+        boxSizing: "border-box",
     },
     button: {
-        width: "100%",
+        width: "90%",
+        maxWidth: "320px",
         padding: "0.75rem",
         background: "linear-gradient(90deg, #11998e, #38ef7d)",
         color: "#fff",
@@ -57,6 +60,7 @@ const styles = {
         cursor: "pointer",
         marginTop: "1rem",
         transition: "background 0.2s",
+        boxSizing: "border-box",
     },
     error: {
         color: "#d32f2f",
@@ -69,6 +73,21 @@ const styles = {
         color: "#888",
         letterSpacing: "0.5px",
     },
+    // Responsive styles
+    '@media (max-width: 480px)': {
+        card: {
+            minWidth: "90vw",
+            padding: "1.5rem 0.5rem",
+        },
+        input: {
+            width: "95%",
+            maxWidth: "95vw",
+        },
+        button: {
+            width: "95%",
+            maxWidth: "95vw",
+        }
+    }
 };
 
 export default function ManagementLogin() {
