@@ -30,14 +30,38 @@ const useStore = create((set) => ({
     }
   },
 
+  // Signup action
+  signup: async (name, email, password) => {
+    set({ loading: true, error: null });
+    try {
+      const response = await fetch("https://shreegopalji.onrender.com/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        set({ loading: false, error: data.message || "Signup failed." });
+        return false;
+      }
+      // Optionally auto-login after signup:
+      localStorage.setItem("token", data.token);
+      set({ user: data.user, token: data.token, loading: false, error: null });
+      return true;
+    } catch (err) {
+      set({ loading: false, error: "Network error. Please try again." });
+      return false;
+    }
+  },
+
   // Logout action
-  logout: async() => {
+  logout: async () => {
     const token = typeof window !== "undefined" && window.localStorage ? localStorage.getItem("token") : null;
-    try{
+    try {
       await fetch("https://shreegopalji.onrender.com/api/auth/logout", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-        });      
+      });
     } catch (err) {
       console.error("Logout failed:", err);
       set({ error: "Logout failed. Please try again." });
@@ -49,7 +73,6 @@ const useStore = create((set) => ({
     set({ user: null, token: null, error: null });
   },
 
-  // Example: set user directly (e.g., after fetching profile)
   setUser: (user) => set({ user }),
 }));
 

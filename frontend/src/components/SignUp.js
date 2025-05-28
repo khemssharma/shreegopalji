@@ -1,5 +1,9 @@
 import React, { useState } from "react";
+import useStore from "../store/useAuthStore";
+import {Link, useNavigate } from "react-router-dom";
+
 const SignUp = () => {
+    const navigate = useNavigate();
     const [form, setForm] = useState({
         name: "",
         email: "",
@@ -7,12 +11,13 @@ const SignUp = () => {
         password: "",
         confirmPassword: "",
     });
-    const [error, setError] = useState("");
     const [success, setSuccess] = useState(false);
+    const { signup, loading, error } = useStore();
+    const  [localError, setlocalError]  = useState("");
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
-        setError("");
+        setlocalError("");
     };
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -23,11 +28,11 @@ const SignUp = () => {
             !form.password ||
             !form.confirmPassword
         ) {
-            setError("Please fill in all fields.");
+            setlocalError("Please fill in all fields.");
             return;
         }
         if (form.password !== form.confirmPassword) {
-            setError("Passwords do not match.");
+            setlocalError("Passwords do not match.");
             return;
         }
         setSuccess(true);
@@ -38,13 +43,16 @@ const SignUp = () => {
             password: "",
             confirmPassword: "",
         });
+        if (success){
+            navigate("/login");
+        }
     };
 
     return (
         <div style={styles.container}>
             <div style={styles.card}>
                 <img
-                    src="https://www.shreegopalji.com/images/logo.png"
+                    src="./sgipllogo.png"
                     alt="Shri Gopalji Infratech Pvt Ltd"
                     style={styles.logo}
                 />
@@ -62,12 +70,12 @@ const SignUp = () => {
                             !form.password ||
                             !form.confirmPassword
                         ) {
-                            setError("Please fill in all fields.");
+                            setlocalError("Please fill in all fields.");
                             setSuccess(false);
                             return;
                         }
                         if (form.password !== form.confirmPassword) {
-                            setError("Passwords do not match.");
+                            setlocalError("Passwords do not match.");
                             setSuccess(false);
                             return;
                         }
@@ -85,12 +93,12 @@ const SignUp = () => {
                             });
                             const data = await res.json();
                             if (!res.ok) {
-                                setError(data.message || "Registration failed.");
+                                setlocalError(data.message || "Registration failed.");
                                 setSuccess(false);
                                 return;
                             }
                             setSuccess(true);
-                            setError("");
+                            setlocalError("");
                             setForm({
                                 name: "",
                                 email: "",
@@ -99,7 +107,7 @@ const SignUp = () => {
                                 confirmPassword: "",
                             });
                         } catch (err) {
-                            setError("Network error. Please try again.");
+                            setlocalError("Network localError. Please try again.");
                             setSuccess(false);
                         }
                     }}
@@ -145,16 +153,22 @@ const SignUp = () => {
                         value={form.confirmPassword}
                         onChange={handleChange}
                     />
-                    {error && <div style={styles.error}>{error}</div>}
+                    {localError && <div style={styles.localError}>{localError}</div>}
                     {success && (
                         <div style={styles.success}>
-                            Registration successful! Welcome to Shri Gopalji Infratech Pvt Ltd.
+                            Registration successful! Please <a href="/login">log in</a> to continue.
                         </div>
                     )}
                     <button type="submit" style={styles.button}>
                         Create Account
                     </button>
                 </form>
+                <div style={{ marginTop: "1rem", fontSize: "0.97rem" }}>
+                    Already a member?{" "}
+                    <Link to="/login" style={{ color: "#2c5364", fontWeight: 600, textDecoration: "underline" }}>
+                        Login to continue
+                    </Link>
+                </div>
             </div>
             <footer style={styles.footer}>
                 &copy; {new Date().getFullYear()} Shri Gopalji Infratech Pvt Ltd. All rights reserved.
@@ -221,7 +235,7 @@ const styles = {
         marginTop: "0.5rem",
         transition: "background 0.2s",
     },
-    error: {
+    localError: {
         color: "#d32f2f",
         background: "#ffebee",
         padding: "0.5rem",
