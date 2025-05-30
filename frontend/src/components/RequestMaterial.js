@@ -46,7 +46,7 @@ const RequestMaterial = ({ open, onClose, onRequest }) => {
         try {
             // Replace with your backend endpoint and auth if needed
             const token = localStorage.getItem("token");
-            const response = await fetch("http://localhost:5000/api/material/request", {
+            const response = await fetch("https://shreegopalji.onrender.com/api/material/request", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
