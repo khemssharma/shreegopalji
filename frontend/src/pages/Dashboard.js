@@ -135,20 +135,14 @@ export default function Dashboard() {
                 <AddProgress
                     open={showAdd}
                     onClose={() => setShowAdd(false)}
-                    onAdd={(data) => {
-                        // Optionally handle the new progress data here
-                        setShowAdd(false);
-                    }}
+                    onAdd={() => {/* Optionally refresh activities */}}
                 />
             )}
             {showRequest && (
                 <RequestMaterial
                     open={showRequest}
                     onClose={() => setShowRequest(false)}
-                    onRequest={(data) => {
-                        // Optionally handle the material request data here
-                        setShowRequest(false);
-                    }}
+                    onRequest={() => {/* Optionally refresh activities */}}
                 />
             )}
         </div>

@@ -6,6 +6,7 @@ const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const mediaRoutes = require('./routes/mediaRoutes');
 const errorHandler = require('./middlewares/errorHandler');
+const projectRoutes = require('./routes/projectRoutes');
 dotenv.config();
 
 // Connect to database
@@ -25,6 +26,7 @@ app.use(bodyParser.json());
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/media', mediaRoutes);
+app.use('/api/project', projectRoutes);
 
 // Basic route
 app.get('/', (req, res) => {

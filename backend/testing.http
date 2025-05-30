@@ -17,29 +17,95 @@ Content-Type: application/json
   "password": "TestPassword123"
 }
 
-### Logout user (invalidate token or session)
+### Logout user (replace {TOKEN} with your JWT)
 POST http://localhost:5000/api/auth/logout
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MzMxOWE2OGVjZTNhNTI3ZDJhYjlkNyIsImVtYWlsIjoidGVzdHVzZXIyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQ4MTc5NjQ2LCJleHAiOjE3NDg3ODQ0NDZ9.1OmdtTNqxMlByAQv0WlkJL4NobHZ9FSvNsHkFfoyyhU
-
-### Get current user (protected route, replace {{TOKEN}} with JWT from login)
-GET http://localhost:5000/api/auth/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MzMxOWE2OGVjZTNhNTI3ZDJhYjlkNyIsImVtYWlsIjoidGVzdHVzZXIyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQ4MTgxNjI1LCJleHAiOjE3NDg3ODY0MjV9.vizPOmD0W5Enlh48v8rSXxcLS0qWz9ssSFumad_MAyY
-
-### Upload media (replace {{TOKEN}} with JWT, and path/to/file.jpg with a real file path)
-POST http://localhost:5000/api/media/upload
 Authorization: Bearer {TOKEN}
-Content-Type: multipart/form-data
 
-------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="file"; filename="file.jpg"
-Content-Type: image/jpeg
+### Get current user profile (replace {TOKEN} with your JWT)
+GET http://localhost:5000/api/auth/profile
+Authorization: Bearer {TOKEN}
 
-< ./path/to/file.jpg
-------WebKitFormBoundary7MA4YWxkTrZu0gW--
+### Add Progress Update (replace {TOKEN} with your JWT)
+POST http://localhost:5000/api/project/progress
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Mzk3NmI3NTQ1YzRhZDIxOGJjNmMxOSIsImVtYWlsIjoidGVzdHVzZXIyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQ4NTk2NTI4LCJleHAiOjE3NDkyMDEzMjh9.3sibC6MaJE_iY9rchv9NOG-7yXaQESQqr1Us8V-iekw
+Content-Type: application/json
 
-### Get all media (protected route)
+{
+  "projectId": "665f2b3c2a7e4e1a2b3c4d5f",
+  "description": "Completed foundation work.",
+  "progressPercent": 25,
+  "updatedBy": "testuser2"
+}
+
+### Request Material (replace {TOKEN} with your JWT)
+POST http://localhost:5000/api/project/material-request
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Mzk3NmI3NTQ1YzRhZDIxOGJjNmMxOSIsImVtYWlsIjoidGVzdHVzZXIyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQ4NTk2NTI4LCJleHAiOjE3NDkyMDEzMjh9.3sibC6MaJE_iY9rchv9NOG-7yXaQESQqr1Us8V-iekw
+Content-Type: application/json
+
+{
+  "projectId": "665f2b3c2a7e4e1a2b3c4d5e",
+  "materialName": "Cement",
+  "quantity": 50,
+  "requestedBy": "testuser2"
+}
+
+### Get all project activities (replace {TOKEN} with your JWT)
+GET http://localhost:5000/api/project/activities
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Mzk3NmI3NTQ1YzRhZDIxOGJjNmMxOSIsImVtYWlsIjoidGVzdHVzZXIyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQ4NTk2NTI4LCJleHAiOjE3NDkyMDEzMjh9.3sibC6MaJE_iY9rchv9NOG-7yXaQESQqr1Us8V-iekw
+
+
+### Get all media (replace {TOKEN} with your JWT)
 GET http://localhost:5000/api/media
 Authorization: Bearer {TOKEN}
 
 ### Error handling test (invalid route)
 GET http://localhost:5000/api/invalid
+
+### Create a new project
+POST http://localhost:5000/api/project
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Mzk3NmI3NTQ1YzRhZDIxOGJjNmMxOSIsImVtYWlsIjoidGVzdHVzZXIyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQ4NjA4MTA2LCJleHAiOjE3NDkyMTI5MDZ9.pw3eZJfhNdXh89T2eRJIbkDqmlL6P4QPqvdIS8GVhP0
+
+{
+  "name": "Sunshine Residency",
+  "location": "Jaipur",
+  "description": "A premium residential project with modern amenities.",
+  "startDate": "2024-06-01T00:00:00.000Z",
+  "endDate": "2026-12-31T00:00:00.000Z",
+  "status": "Ongoing",
+  "images": [],
+  "amenities": ["Swimming Pool", "Gym"],
+  "projectType": "Residential",
+  "reraNumber": "RAJ2024RERA0001",
+  "totalUnits": 120,
+  "availableUnits": 45,
+  "address": {
+    "street": "123 Main Road",
+    "city": "Jaipur",
+    "state": "Rajasthan",
+    "pincode": "302001"
+  },
+  "contactInfo": {
+    "phone": "+91-9876543210",
+    "email": "info@sunshineresidency.com"
+  }
+}
+
+### Get all projects
+GET http://localhost:5000/api/project
+
+### Get a single project
+GET http://localhost:5000/api/project/{PROJECT_ID}
+
+### Update a project
+PUT http://localhost:5000/api/project/{PROJECT_ID}
+Content-Type: application/json
+Authorization: Bearer {TOKEN}
+
+{
+  "status": "Completed"
+}
+
+### Delete a project
+DELETE http://localhost:5000/api/project/{PROJECT_ID}
+Authorization: Bearer {TOKEN}
