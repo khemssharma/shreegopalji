@@ -1,5 +1,9 @@
 import React from 'react';
 import useStore from '../store/useAuthStore';
+import { useNavigate } from 'react-router-dom';
+import AddProgress from "../components/AddProgress";
+import RequestMaterial from "../components/RequestMaterial";
+
 
 const stats = [
     { label: 'Total Projects', value: 12 },
@@ -15,7 +19,10 @@ const recentActivities = [
 ];
 
 export default function Dashboard() {
+    const navigate = useNavigate();
     const logout = useStore((state) => state.logout);
+    const  [showAdd, setShowAdd] = React.useState(false);
+    const  [showRequest, setShowRequest] = React.useState(false);
 
     const handleLogout = async () => {
         await logout();
@@ -101,7 +108,7 @@ export default function Dashboard() {
                     flex: 1
                 }}>
                     <h3 style={{ color: '#1a237e', marginBottom: 16 }}>Quick Actions</h3>
-                    <button style={{
+                    <button onClick={()=> setShowAdd(true)} style={{
                         width: '100%',
                         padding: '12px 0',
                         background: '#3949ab',
@@ -112,7 +119,7 @@ export default function Dashboard() {
                         marginBottom: 12,
                         cursor: 'pointer'
                     }}>Add Progress Update</button>
-                    <button style={{
+                    <button onClick={()=> setShowRequest(true)} style={{
                         width: '100%',
                         padding: '12px 0',
                         background: '#1a237e',
@@ -124,6 +131,26 @@ export default function Dashboard() {
                     }}>Request Material</button>
                 </div>
             </section>
+            {showAdd && (
+                <AddProgress
+                    open={showAdd}
+                    onClose={() => setShowAdd(false)}
+                    onAdd={(data) => {
+                        // Optionally handle the new progress data here
+                        setShowAdd(false);
+                    }}
+                />
+            )}
+            {showRequest && (
+                <RequestMaterial
+                    open={showRequest}
+                    onClose={() => setShowRequest(false)}
+                    onRequest={(data) => {
+                        // Optionally handle the material request data here
+                        setShowRequest(false);
+                    }}
+                />
+            )}
         </div>
     );
 }

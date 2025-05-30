@@ -1,6 +1,22 @@
 {
-  "dependencies": {
-    "express": "^5.1.0",
-    "react-router-dom": "^7.6.0"
-  }
+  "name": "shreegopalji",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
+    "start":"npm run start --prefix backend",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khemssharma/shreegopalji.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/khemssharma/shreegopalji/issues"
+  },
+  "homepage": "https://github.com/khemssharma/shreegopalji#readme"
 }

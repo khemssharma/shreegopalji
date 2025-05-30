@@ -1,22 +1,21 @@
 import Navbar from './components/Navbar';
-import Home from './components/Home';
-import About from './components/About';
-import Services from './components/Services';
-import Contact from './components/Contact';
+import Home from './pages/Home';
+import About from './pages/About';
+import Services from './pages/Services';
+import Contact from './pages/Contact';
 import Footer from './components/Footer';
-import Blog from './components/Blog';
-import Projects from './components/Projects';
-import Testimonials from './components/Testimonials';
-import Careers from './components/Careers';
-import Gallery from './components/Gallery';
-import Events from './components/Events';
-import News from './components/News';
-import FAQs from './components/FAQs';
-import AdminPage from './components/Admin';
-import SignUp from './components/SignUp';
-import Dashboard from './components/Dashboard';
+import Blog from './pages/Blog';
+import Projects from './pages/Projects';
+import Testimonials from './pages/Testimonials';
+import Careers from './pages/Careers';
+import Gallery from './pages/Gallery';
+import Events from './pages/Events';
+import News from './pages/News';
+import FAQs from './pages/FAQs';
+import SignUp from './pages/SignUp';
+import Dashboard from './pages/Dashboard';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import ManagementLogin from './components/ManagementLogin';
+import ManagementLogin from './pages/ManagementLogin';
 import useStore from './store/useAuthStore';
 
 function App() {
@@ -38,7 +37,6 @@ function App() {
           <Route path='/events' element={<Events/>} />
           <Route path='/news' element={<News/>} />
           <Route path='/faqs' element={<FAQs/>} />
-          <Route path='/admin' element={<AdminPage/>}/>
           
           <Route path='/dashboard' element={token ? <Dashboard />:  <Navigate to="/login" />}></Route>
           <Route path='/signup' element={!token ? <SignUp/> : <Navigate to="/dashboard" />}></Route>
