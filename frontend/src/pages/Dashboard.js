@@ -82,55 +82,143 @@ export default function Dashboard() {
                 </div>
             </section>
 
-            <section style={{ display: 'flex', gap: '24px' }}>
-                <div style={{
-                    background: '#fff',
-                    borderRadius: 12,
-                    boxShadow: '0 2px 8px rgba(60,72,88,0.08)',
-                    padding: '24px',
-                    flex: 2
-                }}>
-                    <h3 style={{ color: '#1a237e', marginBottom: 16 }}>Recent Activities</h3>
-                    <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                        {recentActivities.map((item, idx) => (
-                            <li key={idx} style={{ marginBottom: 12, borderBottom: '1px solid #eee', paddingBottom: 8 }}>
-                                <span style={{ color: '#3949ab', fontWeight: 500 }}>{item.time}</span>
-                                <span style={{ marginLeft: 12 }}>{item.activity}</span>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-                <div style={{
-                    background: '#fff',
-                    borderRadius: 12,
-                    boxShadow: '0 2px 8px rgba(60,72,88,0.08)',
-                    padding: 24,
-                    flex: 1
-                }}>
-                    <h3 style={{ color: '#1a237e', marginBottom: 16 }}>Quick Actions</h3>
-                    <button onClick={()=> setShowAdd(true)} style={{
-                        width: '100%',
-                        padding: '12px 0',
-                        background: '#3949ab',
-                        color: '#fff',
-                        border: 'none',
-                        borderRadius: 6,
-                        fontSize: 16,
-                        marginBottom: 12,
-                        cursor: 'pointer'
-                    }}>Add Progress Update</button>
-                    <button onClick={()=> setShowRequest(true)} style={{
-                        width: '100%',
-                        padding: '12px 0',
-                        background: '#1a237e',
-                        color: '#fff',
-                        border: 'none',
-                        borderRadius: 6,
-                        fontSize: 16,
-                        cursor: 'pointer'
-                    }}>Request Material</button>
-                </div>
-            </section>
+                        <section style={{ display: 'flex', gap: '24px' }}>
+                            <div style={{
+                                background: '#fff',
+                                borderRadius: 12,
+                                boxShadow: '0 2px 8px rgba(60,72,88,0.08)',
+                                padding: '24px',
+                                flex: 2
+                            }}>
+                                <h3 style={{ color: '#1a237e', marginBottom: 16 }}>Recent Activities</h3>
+                                <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                                    {recentActivities.map((item, idx) => (
+                                        <li key={idx} style={{ marginBottom: 12, borderBottom: '1px solid #eee', paddingBottom: 8 }}>
+                                            <span style={{ color: '#3949ab', fontWeight: 500 }}>{item.time}</span>
+                                            <span style={{ marginLeft: 12 }}>{item.activity}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                            <div style={{
+                                background: '#fff',
+                                borderRadius: 12,
+                                boxShadow: '0 2px 8px rgba(60,72,88,0.08)',
+                                padding: 24,
+                                flex: 1
+                            }}>
+                                <h3 style={{ color: '#1a237e', marginBottom: 16 }}>Quick Actions</h3>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                                    <button
+                                        onClick={() => {/* handle machinery action */}}
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            width: '100%',
+                                            padding: '12px',
+                                            background: '#e3f2fd',
+                                            color: '#1a237e',
+                                            border: 'none',
+                                            borderRadius: 8,
+                                            fontSize: 16,
+                                            fontWeight: 500,
+                                            cursor: 'pointer',
+                                            gap: 12
+                                        }}
+                                    >
+                                        <span style={{
+                                            display: 'inline-flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            width: 36,
+                                            height: 36,
+                                            background: '#bbdefb',
+                                            borderRadius: '50%',
+                                            marginRight: 8
+                                        }}>
+                                            {/* Machinery SVG */}
+                                            <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                <rect x="3" y="13" width="18" height="6" rx="2" fill="#3949ab"/>
+                                                <rect x="7" y="7" width="10" height="6" rx="2" fill="#90caf9"/>
+                                                <circle cx="7" cy="19" r="2" fill="#3949ab"/>
+                                                <circle cx="17" cy="19" r="2" fill="#3949ab"/>
+                                            </svg>
+                                        </span>
+                                        Machinery
+                                    </button>
+                                    <button
+                                        onClick={() => {/* handle manpower action */}}
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            width: '100%',
+                                            padding: '12px',
+                                            background: '#e8f5e9',
+                                            color: '#1b5e20',
+                                            border: 'none',
+                                            borderRadius: 8,
+                                            fontSize: 16,
+                                            fontWeight: 500,
+                                            cursor: 'pointer',
+                                            gap: 12
+                                        }}
+                                    >
+                                        <span style={{
+                                            display: 'inline-flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            width: 36,
+                                            height: 36,
+                                            background: '#c8e6c9',
+                                            borderRadius: '50%',
+                                            marginRight: 8
+                                        }}>
+                                            {/* Manpower SVG */}
+                                            <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                <circle cx="12" cy="8" r="4" fill="#388e3c"/>
+                                                <rect x="6" y="14" width="12" height="6" rx="3" fill="#81c784"/>
+                                            </svg>
+                                        </span>
+                                        Manpower
+                                    </button>
+                                    <button
+                                        onClick={() => setShowRequest(true)}
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            width: '100%',
+                                            padding: '12px',
+                                            background: '#fff3e0',
+                                            color: '#e65100',
+                                            border: 'none',
+                                            borderRadius: 8,
+                                            fontSize: 16,
+                                            fontWeight: 500,
+                                            cursor: 'pointer',
+                                            gap: 12
+                                        }}
+                                    >
+                                        <span style={{
+                                            display: 'inline-flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            width: 36,
+                                            height: 36,
+                                            background: '#ffe0b2',
+                                            borderRadius: '50%',
+                                            marginRight: 8
+                                        }}>
+                                            {/* Material SVG */}
+                                            <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                <rect x="4" y="15" width="16" height="5" rx="2" fill="#ff9800"/>
+                                                <rect x="7" y="4" width="10" height="9" rx="2" fill="#ffcc80"/>
+                                            </svg>
+                                        </span>
+                                        Material
+                                    </button>
+                                </div>
+                            </div>
+                        </section>
             {showAdd && (
                 <AddProgress
                     open={showAdd}
