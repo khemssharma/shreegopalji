@@ -1,8 +1,9 @@
 import React from 'react';
 import useStore from '../store/useAuthStore';
 import { useNavigate } from 'react-router-dom';
-import AddProgress from "../components/AddProgress";
-import RequestMaterial from "../components/RequestMaterial";
+import MaterialDialog from '../components/Material';
+import Manpower from '../components/Manpower';
+import ManageMachinery from '../components/Machinery';
 
 
 const stats = [
@@ -21,8 +22,9 @@ const recentActivities = [
 export default function Dashboard() {
     const navigate = useNavigate();
     const logout = useStore((state) => state.logout);
-    const  [showAdd, setShowAdd] = React.useState(false);
-    const  [showRequest, setShowRequest] = React.useState(false);
+    const  [manageManpower, setManageManpower] = React.useState(false);
+    const  [manageMaterial, setManageMaterial] = React.useState(false);
+    const [manageMachinery, setManageMachinery] = React.useState(false);
 
     const handleLogout = async () => {
         await logout();
@@ -110,7 +112,7 @@ export default function Dashboard() {
                                 <h3 style={{ color: '#1a237e', marginBottom: 16 }}>Quick Actions</h3>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                                     <button
-                                        onClick={() => {/* handle machinery action */}}
+                                        onClick={() => setManageMachinery(true)}
                                         style={{
                                             display: 'flex',
                                             alignItems: 'center',
@@ -147,7 +149,7 @@ export default function Dashboard() {
                                         Machinery
                                     </button>
                                     <button
-                                        onClick={() => {/* handle manpower action */}}
+                                        onClick={() => setManageManpower(true)}
                                         style={{
                                             display: 'flex',
                                             alignItems: 'center',
@@ -182,7 +184,7 @@ export default function Dashboard() {
                                         Manpower
                                     </button>
                                     <button
-                                        onClick={() => setShowRequest(true)}
+                                        onClick={() => setManageMaterial(true)}
                                         style={{
                                             display: 'flex',
                                             alignItems: 'center',
@@ -219,18 +221,24 @@ export default function Dashboard() {
                                 </div>
                             </div>
                         </section>
-            {showAdd && (
-                <AddProgress
-                    open={showAdd}
-                    onClose={() => setShowAdd(false)}
+            {manageMachinery && (
+                <ManageMachinery
+                    open={manageMachinery}
+                    onClose={() => setManageMachinery(false)}
                     onAdd={() => {/* Optionally refresh activities */}}
                 />
             )}
-            {showRequest && (
-                <RequestMaterial
-                    open={showRequest}
-                    onClose={() => setShowRequest(false)}
+            {manageManpower && (
+                <Manpower
+                    open={manageManpower}
+                    onClose={() => setManageManpower(false)}
                     onRequest={() => {/* Optionally refresh activities */}}
+                />
+            )}
+            {manageMaterial && (
+                <MaterialDialog
+                    open={manageMaterial}
+                    onClose={() => setManageMaterial(false)}
                 />
             )}
         </div>
