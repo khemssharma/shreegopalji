@@ -1,142 +1,235 @@
 import React, { useState } from "react";
-import {
-  Dialog, DialogTitle, DialogContent, DialogActions,
-  Button, TextField, Typography, Box, MenuItem, Table, TableHead, TableRow, TableCell, TableBody, IconButton
-} from "@mui/material";
-import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing";
-import CloseIcon from "@mui/icons-material/Close";
 
-const statusOptions = ["Operational", "Under Maintenance", "Idle"];
-
-const initialMachinery = [
-  { id: 1, name: "Excavator", status: "Operational", location: "Site A" },
-  { id: 2, name: "Bulldozer", status: "Under Maintenance", location: "Site B" },
-  { id: 3, name: "Crane", status: "Operational", location: "Site C" },
+const machines = [
+  "Bolero Camper",
+  "XUV",
+  "JCB",
+  "Roller",
+  "Grader",
 ];
 
-export default function ManageMachinery({ open, onClose }) {
-  const [machinery, setMachinery] = useState(initialMachinery);
-  const [newMachine, setNewMachine] = useState({ name: "", status: "Operational", location: "" });
-  const [error, setError] = useState("");
+export default function MachineryUsageDialog({ onSubmit, onClose }) {
+  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [machine, setMachine] = useState(machines[0]);
+  const [startLocation, setStartLocation] = useState("");
+  const [endLocation, setEndLocation] = useState("");
+  const [startReading, setStartReading] = useState("");
+  const [endReading, setEndReading] = useState("");
+  const [fuelLitres, setFuelLitres] = useState("");
+  const [fuelType, setFuelType] = useState("Diesel");
+  const [fuelPrice, setFuelPrice] = useState("");
+  const [showMap, setShowMap] = useState(false);
 
-  const handleChange = (e) => {
-    setNewMachine({ ...newMachine, [e.target.name]: e.target.value });
-  };
+  // For Google Maps location, you can use a simple input for now
+  // For production, integrate Google Maps API
 
-  const handleAdd = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (!newMachine.name || !newMachine.location) {
-      setError("Please fill all fields.");
-      return;
-    }
-    setMachinery([
-      ...machinery,
-      {
-        id: Date.now(),
-        ...newMachine,
-      },
-    ]);
-    setNewMachine({ name: "", status: "Operational", location: "" });
-    setError("");
-  };
-
-  const handleStatusChange = (id, status) => {
-    setMachinery(
-      machinery.map((m) =>
-        m.id === id ? { ...m, status } : m
-      )
-    );
+    onSubmit &&
+      onSubmit({
+        date,
+        machine,
+        startLocation,
+        endLocation,
+        startReading,
+        endReading,
+        fuelLitres,
+        fuelType,
+        fuelPrice,
+      });
+    onClose && onClose();
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
-      <DialogTitle sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-        <PrecisionManufacturingIcon color="primary" />
-        <Typography variant="h6" color="primary" sx={{ flexGrow: 1 }}>
-          Manage Machinery
-        </Typography>
-        <IconButton onClick={onClose} edge="end" size="large">
-          <CloseIcon />
-        </IconButton>
-      </DialogTitle>
-      <DialogContent>
-        <Typography variant="subtitle2" color="textSecondary" sx={{ mb: 2 }}>
-          For Site Incharges at <b>Shree Gopalji Infratech Pvt. Ltd.</b>
-        </Typography>
-        <Box component="form" onSubmit={handleAdd} sx={{ display: "flex", gap: 2, mb: 3 }}>
-          <TextField
-            name="name"
-            label="Machinery Name"
-            value={newMachine.name}
-            onChange={handleChange}
-            required
-            sx={{ flex: 2 }}
-          />
-          <TextField
-            select
-            name="status"
-            label="Status"
-            value={newMachine.status}
-            onChange={handleChange}
-            sx={{ flex: 1 }}
-          >
-            {statusOptions.map((opt) => (
-              <MenuItem key={opt} value={opt}>{opt}</MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            name="location"
-            label="Location"
-            value={newMachine.location}
-            onChange={handleChange}
-            required
-            sx={{ flex: 2 }}
-          />
-          <Button type="submit" variant="contained" sx={{ flex: 1, minWidth: 100 }}>
-            Add
-          </Button>
-        </Box>
-        {error && (
-          <Typography color="error" sx={{ mb: 2 }}>{error}</Typography>
-        )}
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Location</TableCell>
-              <TableCell>Change Status</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {machinery.map((m) => (
-              <TableRow key={m.id}>
-                <TableCell>{m.name}</TableCell>
-                <TableCell>{m.status}</TableCell>
-                <TableCell>{m.location}</TableCell>
-                <TableCell>
-                  <TextField
-                    select
-                    value={m.status}
-                    onChange={(e) => handleStatusChange(m.id, e.target.value)}
-                    size="small"
-                  >
-                    {statusOptions.map((opt) => (
-                      <MenuItem key={opt} value={opt}>{opt}</MenuItem>
-                    ))}
-                  </TextField>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose} color="secondary" variant="outlined">
-          Close
-        </Button>
-      </DialogActions>
-    </Dialog>
+    <div style={styles.overlay}>
+      <div style={styles.dialog}>
+        <h2 style={{ marginBottom: 8, color: "#2d3e50" }}>
+          Machinery Usage Entry
+        </h2>
+        <form onSubmit={handleSubmit} style={styles.form}>
+          <label>
+            Date:
+            <input
+              type="date"
+              required
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              style={styles.input}
+            />
+          </label>
+          <label>
+            Machine:
+            <select
+              value={machine}
+              onChange={(e) => setMachine(e.target.value)}
+              style={styles.input}
+            >
+              {machines.map((m) => (
+                <option key={m} value={m}>
+                  {m}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label>
+            Start Location (Google Maps Link):
+            <input
+              type="url"
+              placeholder="Paste G1 Google Maps link"
+              required
+              value={startLocation}
+              onChange={(e) => setStartLocation(e.target.value)}
+              style={styles.input}
+            />
+          </label>
+          <label>
+            End Location (Google Maps Link):
+            <input
+              type="url"
+              placeholder="Paste G2 Google Maps link"
+              required
+              value={endLocation}
+              onChange={(e) => setEndLocation(e.target.value)}
+              style={styles.input}
+            />
+          </label>
+          <label>
+            Starting Reading (R1):
+            <input
+              type="number"
+              required
+              value={startReading}
+              onChange={(e) => setStartReading(e.target.value)}
+              style={styles.input}
+              min="0"
+            />
+          </label>
+          <label>
+            Closing Reading (R2):
+            <input
+              type="number"
+              required
+              value={endReading}
+              onChange={(e) => setEndReading(e.target.value)}
+              style={styles.input}
+              min="0"
+            />
+          </label>
+          <label>
+            Fuel (Litre):
+            <input
+              type="number"
+              required
+              value={fuelLitres}
+              onChange={(e) => setFuelLitres(e.target.value)}
+              style={styles.input}
+              min="0"
+              step="0.01"
+            />
+          </label>
+          <label>
+            Fuel Type:
+            <select
+              value={fuelType}
+              onChange={(e) => setFuelType(e.target.value)}
+              style={styles.input}
+            >
+              <option>Diesel</option>
+              <option>Petrol</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <label>
+            Fuel Price (₹):
+            <input
+              type="number"
+              required
+              value={fuelPrice}
+              onChange={(e) => setFuelPrice(e.target.value)}
+              style={styles.input}
+              min="0"
+              step="0.01"
+            />
+          </label>
+          <div style={styles.buttonRow}>
+            <button type="submit" style={styles.submitBtn}>
+              Submit
+            </button>
+            <button type="button" style={styles.cancelBtn} onClick={onClose}>
+              Cancel
+            </button>
+          </div>
+        </form>
+        <div style={{ marginTop: 10, fontSize: 12, color: "#888" }}>
+          <b>Tip:</b> Paste Google Maps links for accurate locations.
+        </div>
+      </div>
+    </div>
   );
 }
-// This component allows site incharges to manage machinery, including adding new machinery and changing their status.
+
+const styles = {
+  overlay: {
+    position: "fixed",
+    zIndex: 9999,
+    top: 0,
+    left: 0,
+    width: "100vw",
+    height: "100vh",
+    background: "rgba(44,62,80,0.7)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  dialog: {
+    background: "#fff",
+    borderRadius: 12,
+    padding: "32px 28px 18px 28px",
+    minWidth: 350,
+    boxShadow: "0 8px 32px rgba(44,62,80,0.18)",
+    position: "relative",
+    maxWidth: 420,
+    width: "100%",
+    animation: "fadeIn 0.3s",
+  },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 12,
+  },
+  input: {
+    marginTop: 4,
+    marginBottom: 8,
+    padding: "7px 10px",
+    borderRadius: 6,
+    border: "1px solid #bfc9d1",
+    fontSize: 15,
+    width: "100%",
+    boxSizing: "border-box",
+  },
+  buttonRow: {
+    display: "flex",
+    justifyContent: "flex-end",
+    gap: 12,
+    marginTop: 10,
+  },
+  submitBtn: {
+    background: "#1abc9c",
+    color: "#fff",
+    border: "none",
+    borderRadius: 6,
+    padding: "8px 18px",
+    fontWeight: "bold",
+    cursor: "pointer",
+    fontSize: 15,
+  },
+  cancelBtn: {
+    background: "#eee",
+    color: "#333",
+    border: "none",
+    borderRadius: 6,
+    padding: "8px 18px",
+    cursor: "pointer",
+    fontSize: 15,
+  },
+};

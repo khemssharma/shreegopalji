@@ -14,7 +14,7 @@ const useProjectStore = create((set, get) => ({
     set({ progressLoading: true, progressError: null });
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/api/project/progress", {
+      const response = await fetch("https://shreegopalji.onrender.com/api/project/progress", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -40,7 +40,7 @@ const useProjectStore = create((set, get) => ({
     set({ materialLoading: true, materialError: null });
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/api/project/material-request", {
+      const response = await fetch("https://shreegopalji.onrender.com/api/project/material-request", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -66,7 +66,7 @@ const useProjectStore = create((set, get) => ({
     set({ activitiesLoading: true, activitiesError: null });
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/api/project/activities", {
+      const response = await fetch("https://shreegopalji.onrender.com/api/project/activities", {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();
