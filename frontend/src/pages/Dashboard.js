@@ -84,14 +84,25 @@ export default function Dashboard() {
                 </div>
             </section>
 
-                        <section style={{ display: 'flex', gap: '24px' }}>
-                            <div style={{
-                                background: '#fff',
-                                borderRadius: 12,
-                                boxShadow: '0 2px 8px rgba(60,72,88,0.08)',
-                                padding: '24px',
-                                flex: 2
-                            }}>
+                        <section
+                            className="dashboard-section-flex"
+                            style={{
+                                display: 'flex',
+                                gap: '24px',
+                                flexWrap: 'wrap'
+                            }}
+                        >
+                            <div
+                                className="dashboard-activities"
+                                style={{
+                                    background: '#fff',
+                                    borderRadius: 12,
+                                    boxShadow: '0 2px 8px rgba(60,72,88,0.08)',
+                                    padding: '24px',
+                                    flex: 2,
+                                    minWidth: 0
+                                }}
+                            >
                                 <h3 style={{ color: '#1a237e', marginBottom: 16 }}>Recent Activities</h3>
                                 <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                                     {recentActivities.map((item, idx) => (
@@ -102,13 +113,17 @@ export default function Dashboard() {
                                     ))}
                                 </ul>
                             </div>
-                            <div style={{
-                                background: '#fff',
-                                borderRadius: 12,
-                                boxShadow: '0 2px 8px rgba(60,72,88,0.08)',
-                                padding: 24,
-                                flex: 1
-                            }}>
+                            <div
+                                className="dashboard-quick-actions"
+                                style={{
+                                    background: '#fff',
+                                    borderRadius: 12,
+                                    boxShadow: '0 2px 8px rgba(60,72,88,0.08)',
+                                    padding: 24,
+                                    flex: 1,
+                                    minWidth: 0
+                                }}
+                            >
                                 <h3 style={{ color: '#1a237e', marginBottom: 16 }}>Quick Actions</h3>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                                     <button
@@ -221,6 +236,20 @@ export default function Dashboard() {
                                 </div>
                             </div>
                         </section>
+                        <style>
+                        {`
+                            @media (max-width: 768px) {
+                                .dashboard-section-flex {
+                                    flex-direction: column !important;
+                                }
+                                .dashboard-activities,
+                                .dashboard-quick-actions {
+                                    width: 100% !important;
+                                    min-width: 0 !important;
+                                }
+                            }
+                        `}
+                        </style>
             {manageMachinery && (
                 <ManageMachinery
                     open={manageMachinery}
