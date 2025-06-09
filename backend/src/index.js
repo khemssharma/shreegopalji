@@ -4,9 +4,11 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
-const mediaRoutes = require('./routes/mediaRoutes');
 const errorHandler = require('./middlewares/errorHandler');
 const projectRoutes = require('./routes/projectRoutes');
+const userRoutes = require('./routes/userRoutes');
+const machineRoutes = require('./routes/machineRoutes');
+const materialRoutes = require('./routes/materialRoutes');
 dotenv.config();
 
 // Connect to database
@@ -25,8 +27,10 @@ app.use(bodyParser.json());
 
 // Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/media', mediaRoutes);
 app.use('/api/project', projectRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/projects/:projectId/machines', machineRoutes);
+app.use('/api/projects/:projectId/materials', materialRoutes);
 
 // Basic route
 app.get('/', (req, res) => {

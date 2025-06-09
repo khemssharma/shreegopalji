@@ -21,84 +21,78 @@ Content-Type: application/json
 POST http://localhost:5000/api/auth/logout
 Authorization: Bearer {TOKEN}
 
-### Get current user profile (replace {TOKEN} with your JWT)
-GET http://localhost:5000/api/auth/profile
-Authorization: Bearer {TOKEN}
 
-### Add Progress Update (replace {TOKEN} with your JWT)
-POST http://localhost:5000/api/project/progress
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Mzk3NmI3NTQ1YzRhZDIxOGJjNmMxOSIsImVtYWlsIjoidGVzdHVzZXIyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQ4NTk2NTI4LCJleHAiOjE3NDkyMDEzMjh9.3sibC6MaJE_iY9rchv9NOG-7yXaQESQqr1Us8V-iekw
+
+######################### USER CRUD & ATTENDANCE #########################
+
+### Create a new user
+POST http://localhost:5000/api/users
 Content-Type: application/json
 
 {
-  "projectId": "665f2b3c2a7e4e1a2b3c4d5f",
-  "description": "Completed foundation work.",
-  "progressPercent": 25,
-  "updatedBy": "testuser2"
+  "name": "Site Incharge",
+  "email": "siteincharge@example.com",
+  "password": "Password123"
 }
 
-### Request Material (replace {TOKEN} with your JWT)
-POST http://localhost:5000/api/project/material-request
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Mzk3NmI3NTQ1YzRhZDIxOGJjNmMxOSIsImVtYWlsIjoidGVzdHVzZXIyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQ4NTk2NTI4LCJleHAiOjE3NDkyMDEzMjh9.3sibC6MaJE_iY9rchv9NOG-7yXaQESQqr1Us8V-iekw
+### Get all users
+GET http://localhost:5000/api/users
+
+### Log attendance for a user
+POST http://localhost:5000/api/users/attendance
 Content-Type: application/json
 
 {
-  "projectId": "665f2b3c2a7e4e1a2b3c4d5e",
-  "materialName": "Cement",
-  "quantity": 50,
-  "requestedBy": "testuser2"
+  "userId": "REPLACE_WITH_USER_ID",
+  "date": "2025-06-09",
+  "status": "present"
 }
 
-### Get all project activities (replace {TOKEN} with your JWT)
-GET http://localhost:5000/api/project/activities
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Mzk3NmI3NTQ1YzRhZDIxOGJjNmMxOSIsImVtYWlsIjoidGVzdHVzZXIyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQ4NTk2NTI4LCJleHAiOjE3NDkyMDEzMjh9.3sibC6MaJE_iY9rchv9NOG-7yXaQESQqr1Us8V-iekw
+### Get attendance history for a user
+GET http://localhost:5000/api/users/attendance/history?userId=REPLACE_WITH_USER_ID
 
+### Reset password
+POST http://localhost:5000/api/users/reset-password
+Content-Type: application/json
 
-### Get all media (replace {TOKEN} with your JWT)
-GET http://localhost:5000/api/media
-Authorization: Bearer {TOKEN}
+{
+  "email": "siteincharge@example.com"
+}
 
-### Error handling test (invalid route)
-GET http://localhost:5000/api/invalid
+### Change password
+POST http://localhost:5000/api/users/change-password
+Content-Type: application/json
+
+{
+  "userId": "REPLACE_WITH_USER_ID",
+  "oldPassword": "Password123",
+  "newPassword": "NewPassword456"
+}
+
+######################### PROJECT CRUD #########################
 
 ### Create a new project
 POST http://localhost:5000/api/project
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Mzk3NmI3NTQ1YzRhZDIxOGJjNmMxOSIsImVtYWlsIjoidGVzdHVzZXIyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzQ4NjA4MTA2LCJleHAiOjE3NDkyMTI5MDZ9.pw3eZJfhNdXh89T2eRJIbkDqmlL6P4QPqvdIS8GVhP0
+Authorization: Bearer {TOKEN}
 
 {
-  "name": "Sunshine Residency",
-  "location": "Jaipur",
-  "description": "A premium residential project with modern amenities.",
-  "startDate": "2024-06-01T00:00:00.000Z",
-  "endDate": "2026-12-31T00:00:00.000Z",
-  "status": "Ongoing",
-  "images": [],
-  "amenities": ["Swimming Pool", "Gym"],
-  "projectType": "Residential",
-  "reraNumber": "RAJ2024RERA0001",
-  "totalUnits": 120,
-  "availableUnits": 45,
-  "address": {
-    "street": "123 Main Road",
-    "city": "Jaipur",
-    "state": "Rajasthan",
-    "pincode": "302001"
-  },
-  "contactInfo": {
-    "phone": "+91-9876543210",
-    "email": "info@sunshineresidency.com"
-  }
+  "name": "Highway Project",
+  "location": "Bhopal",
+  "description": "Highway construction project.",
+  "startDate": "2025-06-01",
+  "endDate": "2026-06-01",
+  "status": "Ongoing"
 }
 
 ### Get all projects
 GET http://localhost:5000/api/project
 
-### Get a single project
-GET http://localhost:5000/api/project/{PROJECT_ID}
+### Get a project by ID
+GET http://localhost:5000/api/project/REPLACE_WITH_PROJECT_ID
 
 ### Update a project
-PUT http://localhost:5000/api/project/{PROJECT_ID}
+PUT http://localhost:5000/api/project/REPLACE_WITH_PROJECT_ID
 Content-Type: application/json
 Authorization: Bearer {TOKEN}
 
@@ -107,5 +101,106 @@ Authorization: Bearer {TOKEN}
 }
 
 ### Delete a project
-DELETE http://localhost:5000/api/project/{PROJECT_ID}
+DELETE http://localhost:5000/api/project/REPLACE_WITH_PROJECT_ID
 Authorization: Bearer {TOKEN}
+
+######################### MACHINE CRUD & REFUEL #########################
+
+### Add a machine to a project
+POST http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/machines
+Content-Type: application/json
+
+{
+  "name": "JCB",
+  "type": "Excavator",
+  "serialNumber": "JCB-12345",
+  "fuelCapacity": 200
+}
+
+### Get all machines for a project
+GET http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/machines
+
+### Get a machine by ID
+GET http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/machines/REPLACE_WITH_MACHINE_ID
+
+### Update a machine
+PUT http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/machines/REPLACE_WITH_MACHINE_ID
+Content-Type: application/json
+
+{
+  "status": "Under Maintenance"
+}
+
+### Log refuel for a machine
+POST http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/machines/REPLACE_WITH_MACHINE_ID/refuel
+Content-Type: application/json
+
+{
+  "litres": 50,
+  "price": 100,
+  "date": "2025-06-09"
+}
+
+### Get refuel history for a machine
+GET http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/machines/REPLACE_WITH_MACHINE_ID/refuel/history
+
+### Get GPS for a machine
+GET http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/machines/REPLACE_WITH_MACHINE_ID/gps
+
+######################### MATERIAL CRUD & USAGE #########################
+
+### Add a material to a project
+POST http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/materials
+Content-Type: application/json
+
+{
+  "name": "Cement",
+  "quantity": 100,
+  "unit": "bag"
+}
+
+### Get all materials for a project
+GET http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/materials
+
+### Get a material by ID
+GET http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/materials/REPLACE_WITH_MATERIAL_ID
+
+### Update a material
+PUT http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/materials/REPLACE_WITH_MATERIAL_ID
+Content-Type: application/json
+
+{
+  "quantity": 120
+}
+
+### Log material usage
+POST http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/materials/usage
+Content-Type: application/json
+
+{
+  "materialId": "REPLACE_WITH_MATERIAL_ID",
+  "quantity": 10,
+  "date": "2025-06-09"
+}
+
+### Get material usage history
+GET http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/materials/usage/history
+
+### Get material stock
+GET http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/materials/stock
+
+### Reorder material
+POST http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/materials/reorder
+Content-Type: application/json
+
+{
+  "materialId": "REPLACE_WITH_MATERIAL_ID",
+  "quantity": 50
+}
+
+### Get reorder history
+GET http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/materials/reorder/history
+
+#########################    2nd Week June 2025 Target #########################
+
+

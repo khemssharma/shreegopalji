@@ -7,9 +7,9 @@ const ProjectSchema = new mongoose.Schema({
     startDate: { type: Date },
     endDate: { type: Date },
     status: { type: String, enum: ['Ongoing', 'Completed', 'On Hold', 'Cancelled'], default: 'Ongoing' },
-    images: [{ type: String }], // URLs or file paths
+    images: [{ type: String }],
     amenities: [{ type: String }],
-    projectType: { type: String }, // e.g., Residential, Commercial, Industrial
+    projectType: { type: String },
     reraNumber: { type: String },
     totalUnits: { type: Number },
     availableUnits: { type: Number },
