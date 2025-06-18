@@ -190,11 +190,11 @@ export default function MaterialDialog({ open, onClose }) {
                     component="label"
                     startIcon={<AttachFileIcon />}
                   >
-                    {dumped.file ? dumped.file.name : "Upload PDF/JPEG"}
+                    {dumped.file ? dumped.file.name : "Upload Bill PDF/JPEG"}
                     <input
                       type="file"
                       name="file"
-                      accept="application/pdf,image/jpeg,image/png"
+                      accept="application/pdf,image/jpeg,image/png,image/jpg"
                       hidden
                       onChange={handleDumpedChange}
                     />
@@ -293,11 +293,11 @@ export default function MaterialDialog({ open, onClose }) {
                     component="label"
                     startIcon={<AttachFileIcon />}
                   >
-                    {usage.file ? usage.file.name : "Upload PDF/JPEG"}
+                    {usage.file ? usage.file.name : "Upload Proof PDF/JPEG/Mp4"}
                     <input
                       type="file"
                       name="file"
-                      accept="application/pdf,image/jpeg,image/png"
+                      accept="application/pdf,image/jpeg,image/png,image/jpg,video/mp4"
                       hidden
                       onChange={handleUsageChange}
                     />

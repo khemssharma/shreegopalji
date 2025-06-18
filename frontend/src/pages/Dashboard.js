@@ -4,14 +4,17 @@ import { useNavigate } from 'react-router-dom';
 import MaterialDialog from '../components/Material';
 import Manpower from '../components/Manpower';
 import ManageMachinery from '../components/Machinery';
+import CreateProjectDialog from '../components/CreateProjectDialog';
+import { Button, Box, Typography, Chip, CircularProgress } from '@mui/material';
+import AddBusinessIcon from '@mui/icons-material/AddBusiness';
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import { Navigation } from "swiper/modules";
+import useProjectStore from "../store/useProjectStore";
 
-
-const stats = [
-    { label: 'Total Projects', value: 12 },
-    { label: 'Active Sites', value: 5 },
-    { label: 'Pending Tasks', value: 23 },
-    { label: 'Completed Milestones', value: 48 },
-];
+// Default image if project has no images
+const DEFAULT_IMAGE = "https://source.unsplash.com/600x400/?construction,site,infra";
 
 const recentActivities = [
     { time: '10:30 AM', activity: 'Material received at Site A' },
@@ -25,6 +28,12 @@ export default function Dashboard() {
     const  [manageManpower, setManageManpower] = React.useState(false);
     const  [manageMaterial, setManageMaterial] = React.useState(false);
     const [manageMachinery, setManageMachinery] = React.useState(false);
+    const [createProjectDialogOpen, setCreateProjectDialogOpen] = React.useState(false);
+    const { projects, fetchProjects, loading, error } = useProjectStore();
+
+    React.useEffect(() => {
+        fetchProjects();
+    }, [fetchProjects]);
 
     const handleLogout = async () => {
         await logout();
@@ -55,34 +64,122 @@ export default function Dashboard() {
             </div>
             <section style={{ marginBottom: 32 }}>
                 <h1 style={{ color: '#1a237e', margin: 0 }}>Shree Gopalji Infratech Pvt Ltd</h1>
-                <h2 style={{ color: '#3949ab', fontWeight: 400, marginTop: 8 }}>Site Incharge Dashboard</h2>
+                <h2 style={{ color: '#3949ab', fontWeight: 400, marginTop: 8 }}>Managerial Staff Dashboard</h2>
             </section>
 
-            {/* Slidable stats */}
-            <section style={{ overflowX: 'auto', marginBottom: '32px' }}>
-                <div style={{
-                    display: 'flex',
-                    gap: '24px',
-                    minWidth: 600,
-                    width: 'max-content',
-                    paddingBottom: 8
-                }}>
-                    {stats.map((stat) => (
-                        <div key={stat.label} style={{
-                            background: '#fff',
-                            borderRadius: 12,
-                            boxShadow: '0 2px 8px rgba(60,72,88,0.08)',
-                            padding: '24px 32px',
-                            minWidth: 220,
-                            textAlign: 'center',
-                            flex: '0 0 auto'
-                        }}>
-                            <div style={{ fontSize: 32, color: '#3949ab', fontWeight: 700 }}>{stat.value}</div>
-                            <div style={{ color: '#616161', fontSize: 16, marginTop: 8 }}>{stat.label}</div>
-                        </div>
-                    ))}
-                </div>
-            </section>
+            {/* Carousel Section */}
+            <Box sx={{ width: "100%", mb: 4 }}>
+                <Typography variant="h6" mb={2} color="text.secondary">
+                    All Projects
+                </Typography>
+                {loading ? (
+                    <Box display="flex" justifyContent="center" alignItems="center" minHeight={200}>
+                        <CircularProgress />
+                    </Box>
+                ) : error ? (
+                    <Typography color="error">{error}</Typography>
+                ) : projects.length === 0 ? (
+                    <Typography>No projects found.</Typography>
+                ) : (
+                    <Swiper
+                        modules={[Navigation]}
+                        navigation
+                        spaceBetween={32}
+                        slidesPerView={Math.min(3, projects.length)}
+                        style={{ paddingBottom: 32 }}
+                        breakpoints={{
+                          320: { slidesPerView: 1 },
+                          600: { slidesPerView: 2 },
+                          900: { slidesPerView: 3 },
+                        }}
+                    >
+                        {projects.map((project) => {
+                          const imgSrc =
+                            project.images && project.images.length > 0
+                              ? project.images[0].startsWith("http")
+                                ? project.images[0]
+                                : `https://shreegopalji.onrender.com/${project.images[0].replace(/^\/+/, "")}`
+                              : DEFAULT_IMAGE;
+                          return (
+                            <SwiperSlide key={project._id}>
+                              <Box
+                                sx={{
+                                  position: "relative",
+                                  borderRadius: 4,
+                                  overflow: "hidden",
+                                  boxShadow: 6,
+                                  minHeight: 320,
+                                  background: "#f5f5f5",
+                                  transition: "transform 0.2s",
+                                  "&:hover": { transform: "scale(1.03)" },
+                                }}
+                              >
+                                <img
+                                  src={imgSrc}
+                                  alt={project.name}
+                                  style={{
+                                    width: "100%",
+                                    height: 220,
+                                    objectFit: "cover",
+                                    display: "block",
+                                    filter: "brightness(0.85)",
+                                  }}
+                                />
+                                <Box
+                                  sx={{
+                                    position: "absolute",
+                                    bottom: 0,
+                                    left: 0,
+                                    width: "100%",
+                                    bgcolor: "rgba(0,0,0,0.55)",
+                                    color: "#fff",
+                                    p: 2,
+                                    borderBottomLeftRadius: 16,
+                                    borderBottomRightRadius: 16,
+                                  }}
+                                >
+                                  <Typography variant="h6" fontWeight={700} gutterBottom>
+                                    {project.name}
+                                  </Typography>
+                                  <Typography variant="body2" gutterBottom>
+                                    {project.location}
+                                  </Typography>
+                                  <Typography variant="body2" sx={{ opacity: 0.85 }}>
+                                    {project.description?.slice(0, 60) || "No description"}
+                                    {project.description && project.description.length > 60 ? "..." : ""}
+                                  </Typography>
+                                  <Box mt={1} display="flex" alignItems="center" gap={1}>
+                                    <Chip
+                                      label={project.status}
+                                      color={
+                                        project.status === "Ongoing"
+                                          ? "primary"
+                                          : project.status === "Completed"
+                                          ? "success"
+                                          : "warning"
+                                      }
+                                      size="small"
+                                      sx={{ fontWeight: 600, bgcolor: "rgba(255,255,255,0.15)" }}
+                                    />
+                                    <Typography variant="caption" ml={1}>
+                                      {project.startDate
+                                        ? new Date(project.startDate).toLocaleDateString()
+                                        : "No Start"}
+                                      {" - "}
+                                      {project.endDate
+                                        ? new Date(project.endDate).toLocaleDateString()
+                                        : "No End"}
+                                    </Typography>
+                                  </Box>
+                                </Box>
+                              </Box>
+                            </SwiperSlide>
+                          );
+                        })}
+                    </Swiper>
+                )}
+              </Box>
+            
 
                         <section
                             className="dashboard-section-flex"
@@ -163,6 +260,7 @@ export default function Dashboard() {
                                         </span>
                                         Machinery
                                     </button>
+
                                     <button
                                         onClick={() => setManageManpower(true)}
                                         style={{
@@ -198,6 +296,7 @@ export default function Dashboard() {
                                         </span>
                                         Manpower
                                     </button>
+
                                     <button
                                         onClick={() => setManageMaterial(true)}
                                         style={{
@@ -233,6 +332,29 @@ export default function Dashboard() {
                                         </span>
                                         Material
                                     </button>
+
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        startIcon={<AddBusinessIcon />}
+                                        onClick={() => setCreateProjectDialogOpen(true)}
+                                        sx={{
+                                            background: 'linear-gradient(90deg, #1976d2 30%, #21cbf3 90%)',
+                                            fontWeight: 700,
+                                            borderRadius: 2,
+                                            boxShadow: 4,
+                                            px: 4,
+                                            py: 1.5,
+                                            fontSize: '1.1rem',
+                                            textTransform: 'none',
+                                            letterSpacing: 1,
+                                            '&:hover': {
+                                                background: 'linear-gradient(90deg, #1565c0 30%, #00bcd4 90%)'
+                                            }
+                                        }}
+                                    >
+                                        Create Project
+                                    </Button>
                                 </div>
                             </div>
                         </section>
@@ -270,6 +392,11 @@ export default function Dashboard() {
                     onClose={() => setManageMaterial(false)}
                 />
             )}
+            <CreateProjectDialog
+                open={createProjectDialogOpen}
+                onClose={() => setCreateProjectDialogOpen(false)}
+            />
+            
         </div>
     );
 }

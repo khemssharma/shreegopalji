@@ -11,13 +11,10 @@ const machines = [
 export default function MachineryUsageDialog({ onSubmit, onClose }) {
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [machine, setMachine] = useState(machines[0]);
-  const [startLocation, setStartLocation] = useState("");
-  const [endLocation, setEndLocation] = useState("");
   const [startReading, setStartReading] = useState("");
   const [endReading, setEndReading] = useState("");
   const [fuelLitres, setFuelLitres] = useState("");
   const [fuelType, setFuelType] = useState("Diesel");
-  const [fuelPrice, setFuelPrice] = useState("");
   const [showMap, setShowMap] = useState(false);
 
   // For Google Maps location, you can use a simple input for now
@@ -29,13 +26,10 @@ export default function MachineryUsageDialog({ onSubmit, onClose }) {
       onSubmit({
         date,
         machine,
-        startLocation,
-        endLocation,
         startReading,
         endReading,
         fuelLitres,
         fuelType,
-        fuelPrice,
       });
     onClose && onClose();
   };
@@ -71,28 +65,7 @@ export default function MachineryUsageDialog({ onSubmit, onClose }) {
               ))}
             </select>
           </label>
-          <label>
-            Start Location (Google Maps Link):
-            <input
-              type="url"
-              placeholder="Paste G1 Google Maps link"
-              required
-              value={startLocation}
-              onChange={(e) => setStartLocation(e.target.value)}
-              style={styles.input}
-            />
-          </label>
-          <label>
-            End Location (Google Maps Link):
-            <input
-              type="url"
-              placeholder="Paste G2 Google Maps link"
-              required
-              value={endLocation}
-              onChange={(e) => setEndLocation(e.target.value)}
-              style={styles.input}
-            />
-          </label>
+          
           <label>
             Starting Reading (R1):
             <input
@@ -136,20 +109,8 @@ export default function MachineryUsageDialog({ onSubmit, onClose }) {
             >
               <option>Diesel</option>
               <option>Petrol</option>
-              <option>Other</option>
+              <option>CNG</option>
             </select>
-          </label>
-          <label>
-            Fuel Price (₹):
-            <input
-              type="number"
-              required
-              value={fuelPrice}
-              onChange={(e) => setFuelPrice(e.target.value)}
-              style={styles.input}
-              min="0"
-              step="0.01"
-            />
           </label>
           <div style={styles.buttonRow}>
             <button type="submit" style={styles.submitBtn}>
@@ -159,10 +120,7 @@ export default function MachineryUsageDialog({ onSubmit, onClose }) {
               Cancel
             </button>
           </div>
-        </form>
-        <div style={{ marginTop: 10, fontSize: 12, color: "#888" }}>
-          <b>Tip:</b> Paste Google Maps links for accurate locations.
-        </div>
+        </form>        
       </div>
     </div>
   );
