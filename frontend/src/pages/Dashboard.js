@@ -1,6 +1,6 @@
 import React from 'react';
 import useStore from '../store/useAuthStore';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import MaterialDialog from '../components/Material';
 import Manpower from '../components/Manpower';
 import ManageMachinery from '../components/Machinery';
@@ -103,8 +103,10 @@ export default function Dashboard() {
                           return (
                             <SwiperSlide key={project._id}>
                               <Box
+                                onClick={() => navigate(`/project/${project._id}`)}
                                 sx={{
                                   position: "relative",
+                                  cursor: "pointer",
                                   borderRadius: 4,
                                   overflow: "hidden",
                                   boxShadow: 6,

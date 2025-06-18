@@ -17,6 +17,7 @@ import Dashboard from './pages/Dashboard';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import ManagementLogin from './pages/ManagementLogin';
 import useStore from './store/useAuthStore';
+import ProjectManagement from './pages/ProjectManagement';
 
 function App() {
   const { token } = useStore();
@@ -41,7 +42,7 @@ function App() {
           <Route path='/dashboard' element={token ? <Dashboard />:  <Navigate to="/login" />}></Route>
           <Route path='/signup' element={!token ? <SignUp/> : <Navigate to="/dashboard" />}></Route>
           <Route path='/login' element={!token ? <ManagementLogin/> : <Navigate to="/dashboard" />}></Route>
-
+          <Route path="/project/:id" element={<ProjectManagement />} />
         </Routes>
         <Footer />
       </div>
