@@ -1,15 +1,30 @@
 import * as React from "react";
 import { useParams } from "react-router-dom";
-import { Box, Typography, Button, Stack, Paper } from "@mui/material";
-import ConstructionIcon from "@mui/icons-material/Construction";
-import GroupsIcon from "@mui/icons-material/Groups";
-import InventoryIcon from "@mui/icons-material/Inventory";
+import { Box, Typography, Button, Stack, Paper, Divider, List, ListItem, ListItemIcon, ListItemText, Avatar } from "@mui/material";
 import useProjectStore from "../store/useProjectStore";
+
+import MaterialDialog from '../components/Material';
+import Manpower from '../components/Manpower';
+import ManageMachinery from '../components/Machinery';
+
+import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import UpdateIcon from '@mui/icons-material/Update';
+import BuildCircleIcon from '@mui/icons-material/BuildCircle';
+import GroupsIcon from '@mui/icons-material/Groups';
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 export default function ProjectManagement() {
   const { id } = useParams();
   const { projects, fetchProjects } = useProjectStore();
   const [project, setProject] = React.useState(null);
+
+  // State for managing dialogs
+  const [manageMachinery, setManageMachinery] = React.useState(false);
+  const [manageManpower, setManageManpower] = React.useState(false);
+  const [manageMaterial, setManageMaterial] = React.useState(false);
 
   React.useEffect(() => {
     if (!projects.length) fetchProjects();
@@ -28,70 +43,204 @@ export default function ProjectManagement() {
     );
   }
 
+  // Dummy recent activities data
+  const recentActivities = [
+    { time: "09:00 AM", activity: "Project created" },
+    { time: "10:30 AM", activity: "Machinery assigned" },
+    { time: "12:00 PM", activity: "Material delivered" },
+    { time: "02:15 PM", activity: "Manpower updated" },
+  ];
+
+  const DEFAULT_IMAGE = "https://source.unsplash.com/600x400/?construction,site,infra";
+  const imgSrc =
+    project.images && project.images.length > 0
+      ? project.images[0]
+      : DEFAULT_IMAGE;
+
+  const handleAddMachineAtSite = () => {
+    // Logic to add a new machine at the site
+  };
+
+  const handleAddMaterialAtSite = () => {
+    // Logic to add new material at the site
+  };
+
+  const handleAddEmployeeAtSite = () => {
+    // Logic to add a new employee at the site
+  };
+
+  const handleUpdateMaterialUsage = () => {
+    // Logic to update material usage
+  };
+
+  const handleUpdateMachineUsage = () => {
+    // Logic to update machine usage
+  };
+
+  const handleUpdateEmployeeAttendance = () => {
+    // Logic to update employee attendance
+  };
+
   return (
     <Box p={4}>
+    <section style={{ marginBottom: 32 }}>
+               <h1 style={{ color: '#1a237e', margin: 0 }}>Shree Gopalji Infratech Pvt Ltd</h1>
+                <h2 style={{ color: '#3949ab', fontWeight: 400, marginTop: 8 }}>Site Incharges' Dashboard</h2>
+            </section>
       <Paper elevation={4} sx={{ p: 3, mb: 4, borderRadius: 3 }}>
-        <Typography variant="h5" fontWeight={700} color="primary">
-          {project.name}
-        </Typography>
-        <Typography variant="subtitle1" color="text.secondary">
-          {project.location}
-        </Typography>
-        <Typography variant="body2" mt={1}>
-          {project.description}
-        </Typography>
+      <div style={{ display: "flex", gap: 24, alignItems: "flex-start" }}>
+        <div style={{ flex: 1 }}>
+          <Typography variant="h4" gutterBottom>
+            <Typography variant="h5" fontWeight={700} color="primary">
+              {project.name}
+            </Typography>
+          </Typography>
+          <Typography variant="subtitle1" color="text.secondary">
+            {project.location}
+          </Typography>
+          <Typography variant="body2" mt={1}>
+            {project.description}
+          </Typography>
+        </div>
+        <img
+          src={imgSrc}
+          alt={project.name}
+          style={{
+            width: 320,
+            height: 220,
+            objectFit: "cover",
+            display: "block",
+            borderRadius: 12,
+          }}
+        />
+      </div>
+      
       </Paper>
 
       <Stack direction={{ xs: "column", sm: "row" }} spacing={3} justifyContent="center">
-        <Button
-          variant="contained"
-          color="primary"
-          startIcon={<ConstructionIcon />}
+        {/* Recent Activities */}
+        <Paper
+          elevation={3}
           sx={{
-            minWidth: 180,
-            fontWeight: 700,
-            fontSize: "1.1rem",
-            background: "linear-gradient(90deg, #ff9800 30%, #ffc107 90%)",
-            boxShadow: 3,
-            borderRadius: 2,
-            '&:hover': { background: "linear-gradient(90deg, #f57c00 30%, #ffd54f 90%)" }
+            p: 2,
+            flex: 1,
+            minWidth: 0,
+            maxWidth: 400,
+            width: '100%',
+            mx: 'auto',
+            borderRadius: 3,
+            background: '#fff',
+            mt: { xs: 2, md: 0 },
           }}
         >
-          Machinery
-        </Button>
-        <Button
-          variant="contained"
-          color="success"
-          startIcon={<GroupsIcon />}
+          <Typography variant="h6" sx={{ mb: 2, fontWeight: 700, color: '#333', textAlign: 'center' }}>
+            Recent Activities
+          </Typography>
+          <Divider sx={{ mb: 1 }} />
+          <List dense>
+            {recentActivities.map((item, idx) => (
+              <ListItem key={idx} sx={{ px: 0 }}>
+                <ListItemIcon>
+                  <Avatar sx={{ bgcolor: '#e3f0ff', width: 32, height: 32 }}>
+                    <AccessTimeIcon color="primary" />
+                  </Avatar>
+                </ListItemIcon>
+                <ListItemText
+                  primary={item.activity}
+                  secondary={item.time}
+                  primaryTypographyProps={{ fontWeight: 500 }}
+                />
+              </ListItem>
+            ))}
+          </List>
+        </Paper>
+        {/* Update Daily Usage */}
+        <Paper
+          elevation={3}
           sx={{
-            minWidth: 180,
-            fontWeight: 700,
-            fontSize: "1.1rem",
-            background: "linear-gradient(90deg, #388e3c 30%, #81c784 90%)",
-            boxShadow: 3,
-            borderRadius: 2,
-            '&:hover': { background: "linear-gradient(90deg, #2e7d32 30%, #a5d6a7 90%)" }
+            p: 2,
+            flex: 1,
+            minWidth: 0,
+            maxWidth: 400,
+            width: '100%',
+            mx: 'auto',
+            borderRadius: 3,
+            textAlign: 'center',
+            background: 'linear-gradient(135deg, #e3f0ff 0%, #f3e7ff 100%)',
           }}
         >
-          Manpower
-        </Button>
-        <Button
-          variant="contained"
-          color="info"
-          startIcon={<InventoryIcon />}
+          <Typography variant="h6" sx={{ mb: 2, fontWeight: 700, color: '#333' }}>
+            Update Daily Usage
+          </Typography>
+          <Stack direction="column" spacing={2}>
+            <Button fullWidth variant="outlined" color="primary" startIcon={<InventoryIcon />} onClick={handleUpdateMaterialUsage}>
+              Update Material Usage
+            </Button>
+            <Button fullWidth variant="outlined" color="warning" startIcon={<BuildCircleIcon />} onClick={handleUpdateMachineUsage}>
+              Update Machine Usage
+            </Button>
+            <Button fullWidth variant="outlined" color="secondary" startIcon={<GroupsIcon />} onClick={handleUpdateEmployeeAttendance}>
+              Update Daily Employee Attendance
+            </Button>
+            <Button fullWidth variant="outlined" color="success" startIcon={<CurrencyRupeeIcon />}>
+              Update Daily Expense
+            </Button>
+          </Stack>
+        </Paper>
+
+        {/* Add at Site */}
+        <Paper
+          elevation={3}
           sx={{
-            minWidth: 180,
-            fontWeight: 700,
-            fontSize: "1.1rem",
-            background: "linear-gradient(90deg, #0288d1 30%, #4fc3f7 90%)",
-            boxShadow: 3,
-            borderRadius: 2,
-            '&:hover': { background: "linear-gradient(90deg, #0277bd 30%, #81d4fa 90%)" }
+            p: 2,
+            flex: 1,
+            minWidth: 0,
+            maxWidth: 400,
+            width: '100%',
+            mx: 'auto',
+            mb: { xs: 2, md: 0 },
+            borderRadius: 3,
+            textAlign: 'center',
+            background: 'linear-gradient(135deg, #e3f0ff 0%, #f3e7ff 100%)',
           }}
         >
-          Material
-        </Button>
+          <Typography variant="h6" sx={{ mb: 2, fontWeight: 700, color: '#333' }}>
+            Add at Site
+          </Typography>
+          <Stack direction="column" spacing={2}>
+            <Button fullWidth variant="contained" color="info" startIcon={<AddToPhotosIcon />} onClick={handleAddMachineAtSite}>
+              Add New Machine At Site
+            </Button>
+            <Button fullWidth variant="contained" color="primary" startIcon={<InventoryIcon />} onClick={handleAddMaterialAtSite}>
+              Add New Material At Site
+            </Button>
+            <Button fullWidth variant="contained" color="success" startIcon={<PersonAddIcon />} onClick={handleAddEmployeeAtSite}>
+              Add New Employee At Site
+            </Button>
+          </Stack>
+        </Paper>
       </Stack>
+
+      {manageMachinery && (
+                <ManageMachinery
+                    open={manageMachinery}
+                    onClose={() => setManageMachinery(false)}
+                    onAdd={() => {/* Optionally refresh activities */}}
+                />
+            )}
+            {manageManpower && (
+                <Manpower
+                    open={manageManpower}
+                    onClose={() => setManageManpower(false)}
+                    onRequest={() => {/* Optionally refresh activities */}}
+                />
+            )}
+            {manageMaterial && (
+                <MaterialDialog
+                    open={manageMaterial}
+                    onClose={() => setManageMaterial(false)}
+                />
+            )}
     </Box>
   );
 }

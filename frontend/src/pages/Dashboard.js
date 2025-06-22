@@ -5,8 +5,13 @@ import MaterialDialog from '../components/Material';
 import Manpower from '../components/Manpower';
 import ManageMachinery from '../components/Machinery';
 import CreateProjectDialog from '../components/CreateProjectDialog';
-import { Button, Box, Typography, Chip, CircularProgress } from '@mui/material';
+import { Button, Box, Typography, Chip, CircularProgress, Stack, Paper } from '@mui/material';
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
+import BuildCircleIcon from '@mui/icons-material/BuildCircle';
+import GroupsIcon from '@mui/icons-material/Groups';
+import InventoryIcon from '@mui/icons-material/Inventory';
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -38,6 +43,26 @@ export default function Dashboard() {
     const handleLogout = async () => {
         await logout();
         window.location.href = "/login";
+    };
+
+    const handleAddEmployee = () => {
+        // Logic to add employee
+    };
+
+    const handleAddMachinery = () => {
+        setManageMachinery(true);
+    };
+
+    const handleMonitorMachinery = () => {
+        // Logic to monitor machinery
+    };
+
+    const handleMonitorEmployees = () => {
+        // Logic to monitor employees
+    };
+
+    const handleMonitorMaterial = () => {
+        // Logic to monitor material
     };
 
     return (
@@ -223,118 +248,90 @@ export default function Dashboard() {
                                     minWidth: 0
                                 }}
                             >
-                                <h3 style={{ color: '#1a237e', marginBottom: 16 }}>Quick Actions</h3>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                                    <button
-                                        onClick={() => setManageMachinery(true)}
-                                        style={{
+                                <h3 style={{ color: '#1a237e', marginBottom: 16 }}>Quick Review</h3>
+                                
+  
+  <Stack
+    direction="column"
+    spacing={2}
+    alignItems="stretch"
+  >
+    
+    <Button
+      variant="outlined"
+      color="warning"
+      startIcon={<BuildCircleIcon />}
+      onClick={handleMonitorMachinery}
+      sx={{ py: 1.5, fontWeight: 500 }}
+      fullWidth
+    >
+      Monitor Machinery
+    </Button>
+    <Button
+      variant="outlined"
+      color="secondary"
+      startIcon={<GroupsIcon />}
+      onClick={handleMonitorEmployees}
+      sx={{ py: 1.5, fontWeight: 500 }}
+      fullWidth
+    >
+      Monitor Employees
+    </Button>
+    <Button
+      variant="outlined"
+      color="primary"
+      startIcon={<InventoryIcon />}
+      onClick={handleMonitorMaterial}
+      sx={{ py: 1.5, fontWeight: 500 }}
+      fullWidth
+    >
+      Monitor Material
+    </Button>
+    
+                                    
+
+  </Stack>
+  
+                            </div>
+                            <Paper
+                                        elevation={3}
+                                        sx={{
+                                            p: 2,
                                             display: 'flex',
-                                            alignItems: 'center',
-                                            width: '100%',
-                                            padding: '12px',
-                                            background: '#e3f2fd',
-                                            color: '#1a237e',
-                                            border: 'none',
-                                            borderRadius: 8,
-                                            fontSize: 16,
-                                            fontWeight: 500,
-                                            cursor: 'pointer',
-                                            gap: 12
-                                        }}
-                                    >
-                                        <span style={{
-                                            display: 'inline-flex',
+                                            flexDirection: 'column',
                                             alignItems: 'center',
                                             justifyContent: 'center',
-                                            width: 36,
-                                            height: 36,
-                                            background: '#bbdefb',
-                                            borderRadius: '50%',
-                                            marginRight: 8
+                                            backgroundColor: '#e3f2fd',
+                                            borderRadius: 2,
+                                            textAlign: 'center'
+                                            
                                         }}>
-                                            {/* Machinery SVG */}
-                                            <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                <rect x="3" y="13" width="18" height="6" rx="2" fill="#3949ab"/>
-                                                <rect x="7" y="7" width="10" height="6" rx="2" fill="#90caf9"/>
-                                                <circle cx="7" cy="19" r="2" fill="#3949ab"/>
-                                                <circle cx="17" cy="19" r="2" fill="#3949ab"/>
-                                            </svg>
-                                        </span>
-                                        Machinery
-                                    </button>
+                                        <h3 style={{ color: '#1a237e', marginBottom: 16 }}>Add New</h3>
 
-                                    <button
-                                        onClick={() => setManageManpower(true)}
-                                        style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            width: '100%',
-                                            padding: '12px',
-                                            background: '#e8f5e9',
-                                            color: '#1b5e20',
-                                            border: 'none',
-                                            borderRadius: 8,
-                                            fontSize: 16,
-                                            fontWeight: 500,
-                                            cursor: 'pointer',
-                                            gap: 12
-                                        }}
+                                        <Stack
+                                            direction="column"
+                                            spacing={2}
+                                            alignItems="stretch">
+                                        <Button
+      variant="contained"
+      color="success"
+      startIcon={<PersonAddIcon />}
+      onClick={handleAddEmployee}
+      sx={{ py: 1.5, fontWeight: 500 }}
+      fullWidth
+    >
+      Add Employee
+                                    </Button>
+                                    <Button
+                                    variant="contained"
+                                    color="info"
+                                    startIcon={<AddToPhotosIcon />}
+                                    onClick={handleAddMachinery}
+                                    sx={{ py: 1.5, fontWeight: 500 }}
+                                    fullWidth
                                     >
-                                        <span style={{
-                                            display: 'inline-flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            width: 36,
-                                            height: 36,
-                                            background: '#c8e6c9',
-                                            borderRadius: '50%',
-                                            marginRight: 8
-                                        }}>
-                                            {/* Manpower SVG */}
-                                            <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                <circle cx="12" cy="8" r="4" fill="#388e3c"/>
-                                                <rect x="6" y="14" width="12" height="6" rx="3" fill="#81c784"/>
-                                            </svg>
-                                        </span>
-                                        Manpower
-                                    </button>
-
-                                    <button
-                                        onClick={() => setManageMaterial(true)}
-                                        style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            width: '100%',
-                                            padding: '12px',
-                                            background: '#fff3e0',
-                                            color: '#e65100',
-                                            border: 'none',
-                                            borderRadius: 8,
-                                            fontSize: 16,
-                                            fontWeight: 500,
-                                            cursor: 'pointer',
-                                            gap: 12
-                                        }}
-                                    >
-                                        <span style={{
-                                            display: 'inline-flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            width: 36,
-                                            height: 36,
-                                            background: '#ffe0b2',
-                                            borderRadius: '50%',
-                                            marginRight: 8
-                                        }}>
-                                            {/* Material SVG */}
-                                            <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                <rect x="4" y="15" width="16" height="5" rx="2" fill="#ff9800"/>
-                                                <rect x="7" y="4" width="10" height="9" rx="2" fill="#ffcc80"/>
-                                            </svg>
-                                        </span>
-                                        Material
-                                    </button>
-
+                                    Add Machinery
+                                    </Button>
                                     <Button
                                         variant="contained"
                                         color="primary"
@@ -357,9 +354,10 @@ export default function Dashboard() {
                                     >
                                         Create Project
                                     </Button>
-                                </div>
-                            </div>
+                                    </Stack>
+                                    </Paper>
                         </section>
+                        
                         <style>
                         {`
                             @media (max-width: 768px) {
