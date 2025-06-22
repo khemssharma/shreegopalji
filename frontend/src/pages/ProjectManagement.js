@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { Box, Typography, Button, Stack, Paper, Divider, List, ListItem, ListItemIcon, ListItemText, Avatar } from "@mui/material";
 import useProjectStore from "../store/useProjectStore";
 
-
 import MaterialDialog from '../components/Material';
 import Manpower from '../components/Manpower';
 import ManageMachinery from '../components/Machinery';
