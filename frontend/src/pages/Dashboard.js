@@ -3,8 +3,9 @@ import useStore from '../store/useAuthStore';
 import { useNavigate } from "react-router-dom";
 import MaterialDialog from '../components/Material';
 import Manpower from '../components/Manpower';
-import ManageMachinery from '../components/Machinery';
 import CreateProjectDialog from '../components/CreateProjectDialog';
+import AddEmployeeDialog from '../components/AddEmployeeDialog';
+import AddNewMachineryDialog from '../components/AddNewMachineryDialog';
 import { Button, Box, Typography, Chip, CircularProgress, Stack, Paper } from '@mui/material';
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
@@ -34,6 +35,8 @@ export default function Dashboard() {
     const  [manageMaterial, setManageMaterial] = React.useState(false);
     const [manageMachinery, setManageMachinery] = React.useState(false);
     const [createProjectDialogOpen, setCreateProjectDialogOpen] = React.useState(false);
+    const [addEmployeeDialogOpen, setAddEmployeeDialogOpen] = React.useState(false);
+    const [addMachineryDialogOpen, setAddMachineryDialogOpen] = React.useState(false);
     const { projects, fetchProjects, loading, error } = useProjectStore();
 
     React.useEffect(() => {
@@ -46,11 +49,11 @@ export default function Dashboard() {
     };
 
     const handleAddEmployee = () => {
-        // Logic to add employee
+        setAddEmployeeDialogOpen(true);
     };
 
     const handleAddMachinery = () => {
-        setManageMachinery(true);
+        setAddMachineryDialogOpen(true);
     };
 
     const handleMonitorMachinery = () => {
@@ -123,7 +126,7 @@ export default function Dashboard() {
                             project.images && project.images.length > 0
                               ? project.images[0].startsWith("http")
                                 ? project.images[0]
-                                : `https://shreegopalji.onrender.com/${project.images[0].replace(/^\/+/, "")}`
+                                : `http://localhost:5000/${project.images[0].replace(/^\/+/, "")}`
                               : DEFAULT_IMAGE;
                           return (
                             <SwiperSlide key={project._id}>
@@ -372,13 +375,7 @@ export default function Dashboard() {
                             }
                         `}
                         </style>
-            {manageMachinery && (
-                <ManageMachinery
-                    open={manageMachinery}
-                    onClose={() => setManageMachinery(false)}
-                    onAdd={() => {/* Optionally refresh activities */}}
-                />
-            )}
+            
             {manageManpower && (
                 <Manpower
                     open={manageManpower}
@@ -396,6 +393,15 @@ export default function Dashboard() {
                 open={createProjectDialogOpen}
                 onClose={() => setCreateProjectDialogOpen(false)}
             />
+            <AddEmployeeDialog
+                open={addEmployeeDialogOpen}
+                onClose={() => setAddEmployeeDialogOpen(false)}
+            />
+            <AddNewMachineryDialog
+                open={addMachineryDialogOpen}
+                onClose={() => setAddMachineryDialogOpen(false)}
+            />
+            
             
         </div>
     );

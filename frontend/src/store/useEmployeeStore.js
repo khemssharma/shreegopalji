@@ -1,29 +1,29 @@
 import { create } from "zustand";
 
-const useProjectStore = create((set) => ({
-  projects: [],
+const useEmployeeStore = create((set) => ({
+  employees: [],
   loading: false,
   error: null,
 
-  // Create a new project
-  createProject: async (projectData) => {
+  // Create a new employee
+  createEmployee: async (employeeData) => {
     set({ loading: true, error: null });
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/api/project", {
+      const response = await fetch("http://localhost:5000/api/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(projectData),
+        body: JSON.stringify(employeeData),
       });
       const data = await response.json();
       if (!response.ok) {
-        set({ loading: false, error: data.error || "Failed to create project." });
+        set({ loading: false, error: data.message || "Failed to add employee." });
         return false;
       }
-      set((state) => ({ projects: [...state.projects, data], loading: false, error: null }));
+      set((state) => ({ employees: [...state.employees, data.user], loading: false, error: null }));
       return true;
     } catch (err) {
       set({ loading: false, error: "Network error. Please try again." });
@@ -31,24 +31,24 @@ const useProjectStore = create((set) => ({
     }
   },
 
-  // Fetch all projects
-  fetchProjects: async () => {
+  // Fetch all employees
+  fetchEmployees: async () => {
     set({ loading: true, error: null });
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/api/project", {
+      const response = await fetch("http://localhost:5000/api/users", {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();
       if (!response.ok) {
-        set({ loading: false, error: data.error || "Failed to fetch projects." });
+        set({ loading: false, error: data.message || "Failed to fetch employees." });
         return;
       }
-      set({ projects: data, loading: false, error: null });
+      set({ employees: data, loading: false, error: null });
     } catch (err) {
       set({ loading: false, error: "Network error. Please try again." });
     }
   },
 }));
 
-export default useProjectStore;
+export default useEmployeeStore;

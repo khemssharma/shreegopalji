@@ -201,6 +201,65 @@ Content-Type: application/json
 ### Get reorder history
 GET http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/materials/reorder/history
 
+######################### EMPLOYEE CRUD #########################
+
+### Add a new employee
+POST http://localhost:5000/api/users
+Content-Type: application/json
+Authorization: Bearer {TOKEN}
+
+{
+  "name": "John Doe",
+  "email": "johndoe@example.com",
+  "password": "Password123",
+  "role": "Engineer"
+}
+
+### Get all employees
+GET http://localhost:5000/api/users
+Authorization: Bearer {TOKEN}
+
+######################### MACHINERY CRUD #########################
+
+### Add a new machine to a project
+POST http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/machines
+Content-Type: application/json
+Authorization: Bearer {TOKEN}
+
+{
+  "name": "Bulldozer",
+  "type": "Dozer",
+  "serialNumber": "BDZ-001",
+  "fuelCapacity": 300
+}
+
+### Get all machines for a project
+GET http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/machines
+Authorization: Bearer {TOKEN}
+
 #########################    2nd Week June 2025 Target #########################
+
+### Create a machine (independent)
+POST http://localhost:5000/api/machines/create
+Content-Type: application/json
+
+{
+  "name": "Excavator",
+  "type": "Heavy",
+  "serialNumber": "EXC-001",
+  "fuelCapacity": 250
+}
+
+### Assign a machine to a project
+POST http://localhost:5000/api/machines/assign
+Content-Type: application/json
+
+{
+  "machineId": "685b921a04bb65162c023a75",
+  "projectId": "68529eaf4e422e71be4d2135"
+}
+
+### Get all machines
+GET http://localhost:5000/api/machines
 
 

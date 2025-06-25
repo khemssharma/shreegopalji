@@ -9,6 +9,7 @@ const projectRoutes = require('./routes/projectRoutes');
 const userRoutes = require('./routes/userRoutes');
 const machineRoutes = require('./routes/machineRoutes');
 const materialRoutes = require('./routes/materialRoutes');
+const independentMachineRoutes = require('./routes/independentMachineRoutes');
 dotenv.config();
 
 // Connect to database
@@ -29,6 +30,9 @@ app.use(bodyParser.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/project', projectRoutes);
 app.use('/api/users', userRoutes);
+
+// For independent machines
+app.use('/api/machines', independentMachineRoutes);
 app.use('/api/projects/:projectId/machines', machineRoutes);
 app.use('/api/projects/:projectId/materials', materialRoutes);
 

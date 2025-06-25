@@ -3,9 +3,60 @@ const RefuelHistory = require('../models/RefuelHistory');
 
 exports.addMachine = async (req, res) => {
     try {
-        const machine = new Machine(req.body);
+        // Ensure projectId is set from route param
+        const { projectId } = req.params;
+        const { name, type, serialNumber, fuelCapacity } = req.body;
+        if (!projectId || !name || !type) {
+            return res.status(400).json({ error: 'projectId, name, and type are required.' });
+        }
+        const machine = new Machine({
+            projectId,
+            name,
+            type,
+            serialNumber,
+            fuelCapacity
+        });
         await machine.save();
         res.status(201).json(machine);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
+
+// Create a machine independently (no projectId required)
+exports.createMachine = async (req, res) => {
+    try {
+        const { name, type, serialNumber, fuelCapacity } = req.body;
+        if (!name || !type) {
+            return res.status(400).json({ error: 'name and type are required.' });
+        }
+        const machine = new Machine({
+            name,
+            type,
+            serialNumber,
+            fuelCapacity
+        });
+        await machine.save();
+        res.status(201).json(machine);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
+
+// Assign a machine to a project (update projectId)
+exports.assignMachineToProject = async (req, res) => {
+    try {
+        const { machineId, projectId } = req.body;
+        if (!machineId || !projectId) {
+            return res.status(400).json({ error: 'machineId and projectId are required.' });
+        }
+        const machine = await Machine.findByIdAndUpdate(
+            machineId,
+            { projectId },
+            { new: true }
+        );
+        if (!machine) return res.status(404).json({ error: 'Machine not found' });
+        res.json(machine);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }

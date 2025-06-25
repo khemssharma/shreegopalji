@@ -1,29 +1,29 @@
 import { create } from "zustand";
 
-const useProjectStore = create((set) => ({
-  projects: [],
+const useMachineryStore = create((set) => ({
+  machinery: [],
   loading: false,
   error: null,
 
-  // Create a new project
-  createProject: async (projectData) => {
+  // Create a new machine (requires projectId)
+  createMachinery: async (projectId, machineData) => {
     set({ loading: true, error: null });
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/api/project", {
+      const response = await fetch(`http://localhost:5000/api/projects/${projectId}/machines`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(projectData),
+        body: JSON.stringify(machineData),
       });
       const data = await response.json();
       if (!response.ok) {
-        set({ loading: false, error: data.error || "Failed to create project." });
+        set({ loading: false, error: data.error || "Failed to add machinery." });
         return false;
       }
-      set((state) => ({ projects: [...state.projects, data], loading: false, error: null }));
+      set((state) => ({ machinery: [...state.machinery, data], loading: false, error: null }));
       return true;
     } catch (err) {
       set({ loading: false, error: "Network error. Please try again." });
@@ -31,24 +31,24 @@ const useProjectStore = create((set) => ({
     }
   },
 
-  // Fetch all projects
-  fetchProjects: async () => {
+  // Fetch all machines for a project
+  fetchMachinery: async (projectId) => {
     set({ loading: true, error: null });
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/api/project", {
+      const response = await fetch(`http://localhost:5000/api/projects/${projectId}/machines`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();
       if (!response.ok) {
-        set({ loading: false, error: data.error || "Failed to fetch projects." });
+        set({ loading: false, error: data.error || "Failed to fetch machinery." });
         return;
       }
-      set({ projects: data, loading: false, error: null });
+      set({ machinery: data, loading: false, error: null });
     } catch (err) {
       set({ loading: false, error: "Network error. Please try again." });
     }
   },
 }));
 
-export default useProjectStore;
+export default useMachineryStore;

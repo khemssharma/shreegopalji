@@ -3,9 +3,12 @@ import { useParams } from "react-router-dom";
 import { Box, Typography, Button, Stack, Paper, Divider, List, ListItem, ListItemIcon, ListItemText, Avatar } from "@mui/material";
 import useProjectStore from "../store/useProjectStore";
 
+import AddMachineryDialog from '../components/AddMachineryDialog';
+import AddEmployeeDialog from '../components/AddEmployeeDialog';
 import MaterialDialog from '../components/Material';
+import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+
 import Manpower from '../components/Manpower';
-import ManageMachinery from '../components/Machinery';
 
 import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
 import InventoryIcon from '@mui/icons-material/Inventory';
@@ -25,6 +28,14 @@ export default function ProjectManagement() {
   const [manageMachinery, setManageMachinery] = React.useState(false);
   const [manageManpower, setManageManpower] = React.useState(false);
   const [manageMaterial, setManageMaterial] = React.useState(false);
+
+  const [addMachineDialogOpen, setAddMachineDialogOpen] = React.useState(false);
+  const [addMaterialDialogOpen, setAddMaterialDialogOpen] = React.useState(false);
+  const [addEmployeeDialogOpen, setAddEmployeeDialogOpen] = React.useState(false);
+
+  const [updateMaterialUsageDialogOpen, setUpdateMaterialUsageDialogOpen] = React.useState(false);
+  const [updateMachineUsageDialogOpen, setUpdateMachineUsageDialogOpen] = React.useState(false);
+  const [updateEmployeeAttendanceDialogOpen, setUpdateEmployeeAttendanceDialogOpen] = React.useState(false);
 
   React.useEffect(() => {
     if (!projects.length) fetchProjects();
@@ -57,29 +68,13 @@ export default function ProjectManagement() {
       ? project.images[0]
       : DEFAULT_IMAGE;
 
-  const handleAddMachineAtSite = () => {
-    // Logic to add a new machine at the site
-  };
+  const handleAddMachineAtSite = () => setAddMachineDialogOpen(true);
+  const handleAddMaterialAtSite = () => setAddMaterialDialogOpen(true);
+  const handleAddEmployeeAtSite = () => setAddEmployeeDialogOpen(true);
 
-  const handleAddMaterialAtSite = () => {
-    // Logic to add new material at the site
-  };
-
-  const handleAddEmployeeAtSite = () => {
-    // Logic to add a new employee at the site
-  };
-
-  const handleUpdateMaterialUsage = () => {
-    // Logic to update material usage
-  };
-
-  const handleUpdateMachineUsage = () => {
-    // Logic to update machine usage
-  };
-
-  const handleUpdateEmployeeAttendance = () => {
-    // Logic to update employee attendance
-  };
+  const handleUpdateMaterialUsage = () => setUpdateMaterialUsageDialogOpen(true);
+  const handleUpdateMachineUsage = () => setUpdateMachineUsageDialogOpen(true);
+  const handleUpdateEmployeeAttendance = () => setUpdateEmployeeAttendanceDialogOpen(true);
 
   return (
     <Box p={4}>
@@ -221,13 +216,7 @@ export default function ProjectManagement() {
         </Paper>
       </Stack>
 
-      {manageMachinery && (
-                <ManageMachinery
-                    open={manageMachinery}
-                    onClose={() => setManageMachinery(false)}
-                    onAdd={() => {/* Optionally refresh activities */}}
-                />
-            )}
+     
             {manageManpower && (
                 <Manpower
                     open={manageManpower}
@@ -241,6 +230,55 @@ export default function ProjectManagement() {
                     onClose={() => setManageMaterial(false)}
                 />
             )}
+            <AddMachineryDialog
+  open={addMachineDialogOpen}
+  onClose={() => setAddMachineDialogOpen(false)}
+  projectId={project._id}
+/>
+<MaterialDialog
+  open={addMaterialDialogOpen}
+  onClose={() => setAddMaterialDialogOpen(false)}
+  projectId={project._id}
+/>
+<AddEmployeeDialog
+  open={addEmployeeDialogOpen}
+  onClose={() => setAddEmployeeDialogOpen(false)}
+  projectId={project._id}
+/>
+
+{/* Simple placeholder dialogs for usage/attendance */}
+<Dialog open={updateMaterialUsageDialogOpen} onClose={() => setUpdateMaterialUsageDialogOpen(false)}>
+  <DialogTitle>Update Material Usage</DialogTitle>
+  <DialogContent>
+    {/* Add your form or content here */}
+    <p>Material usage update form goes here.</p>
+  </DialogContent>
+  <DialogActions>
+    <Button onClick={() => setUpdateMaterialUsageDialogOpen(false)}>Close</Button>
+  </DialogActions>
+</Dialog>
+
+<Dialog open={updateMachineUsageDialogOpen} onClose={() => setUpdateMachineUsageDialogOpen(false)}>
+  <DialogTitle>Update Machine Usage</DialogTitle>
+  <DialogContent>
+    {/* Add your form or content here */}
+    <p>Machine usage update form goes here.</p>
+  </DialogContent>
+  <DialogActions>
+    <Button onClick={() => setUpdateMachineUsageDialogOpen(false)}>Close</Button>
+  </DialogActions>
+</Dialog>
+
+<Dialog open={updateEmployeeAttendanceDialogOpen} onClose={() => setUpdateEmployeeAttendanceDialogOpen(false)}>
+  <DialogTitle>Update Employee Attendance</DialogTitle>
+  <DialogContent>
+    {/* Add your form or content here */}
+    <p>Employee attendance update form goes here.</p>
+  </DialogContent>
+  <DialogActions>
+    <Button onClick={() => setUpdateEmployeeAttendanceDialogOpen(false)}>Close</Button>
+  </DialogActions>
+</Dialog>
     </Box>
   );
 }
