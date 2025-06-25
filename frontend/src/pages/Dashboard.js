@@ -126,7 +126,7 @@ export default function Dashboard() {
                             project.images && project.images.length > 0
                               ? project.images[0].startsWith("http")
                                 ? project.images[0]
-                                : `http://localhost:5000/${project.images[0].replace(/^\/+/, "")}`
+                                : `https://shreegopalji.onrender.com/${project.images[0].replace(/^\/+/, "")}`
                               : DEFAULT_IMAGE;
                           return (
                             <SwiperSlide key={project._id}>

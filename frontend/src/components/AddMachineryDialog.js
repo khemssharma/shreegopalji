@@ -11,7 +11,7 @@ const AddMachineryDialog = ({ open, onClose, projectId }) => {
     useEffect(() => {
         if (open) {
             setFetching(true);
-            fetch('http://localhost:5000/api/machines')
+            fetch('https://shreegopalji.onrender.com/api/machines')
                 .then(res => res.json())
                 .then(data => {
                     setMachines(data);
@@ -25,7 +25,7 @@ const AddMachineryDialog = ({ open, onClose, projectId }) => {
         e.preventDefault();
         if (!selectedMachineId || !projectId) return;
         setLoading(true);
-        const res = await fetch('http://localhost:5000/api/machines/assign', {
+        const res = await fetch('https://shreegopalji.onrender.com/api/machines/assign', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ machineId: selectedMachineId, projectId }),

@@ -11,7 +11,7 @@ const AddNewMachineryDialog = ({ open, onClose }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        const res = await fetch('http://localhost:5000/api/machines/create', {
+        const res = await fetch('https://shreegopalji.onrender.com/api/machines/create', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

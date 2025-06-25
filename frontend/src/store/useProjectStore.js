@@ -10,7 +10,7 @@ const useProjectStore = create((set) => ({
     set({ loading: true, error: null });
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/api/project", {
+      const response = await fetch("https://shreegopalji.onrender.com/api/project", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -36,7 +36,7 @@ const useProjectStore = create((set) => ({
     set({ loading: true, error: null });
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/api/project", {
+      const response = await fetch("https://shreegopalji.onrender.com/api/project", {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();
