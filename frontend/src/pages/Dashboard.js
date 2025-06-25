@@ -33,7 +33,6 @@ export default function Dashboard() {
     const logout = useStore((state) => state.logout);
     const  [manageManpower, setManageManpower] = React.useState(false);
     const  [manageMaterial, setManageMaterial] = React.useState(false);
-    const [manageMachinery, setManageMachinery] = React.useState(false);
     const [createProjectDialogOpen, setCreateProjectDialogOpen] = React.useState(false);
     const [addEmployeeDialogOpen, setAddEmployeeDialogOpen] = React.useState(false);
     const [addMachineryDialogOpen, setAddMachineryDialogOpen] = React.useState(false);
@@ -366,10 +365,9 @@ export default function Dashboard() {
                             @media (max-width: 768px) {
                                 .dashboard-section-flex {
                                     flex-direction: column !important;
-                                }
                                 .dashboard-activities,
                                 .dashboard-quick-actions {
-                                    width: 100% !important;
+                                    width: 90% !important;
                                     min-width: 0 !important;
                                 }
                             }
