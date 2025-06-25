@@ -5,8 +5,11 @@
   "main": "index.js",
   "scripts": {
     "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
-    "start":"npm run start --prefix backend",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm run start --prefix backend",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd backend && npm start",
+    "client": "cd frontend && npm start"
   },
   "repository": {
     "type": "git",
@@ -18,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/khemssharma/shreegopalji/issues"
   },
-  "homepage": "https://github.com/khemssharma/shreegopalji#readme"
+  "homepage": "https://github.com/khemssharma/shreegopalji#readme",
+  "devDependencies": {
+    "concurrently": "^9.2.0"
+  }
 }
