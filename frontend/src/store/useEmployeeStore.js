@@ -1,5 +1,7 @@
 import { create } from "zustand";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const useEmployeeStore = create((set) => ({
   employees: [],
   loading: false,
@@ -10,7 +12,7 @@ const useEmployeeStore = create((set) => ({
     set({ loading: true, error: null });
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("https://shreegopalji.onrender.com/api/users", {
+      const response = await fetch(`${API_URL}/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -36,7 +38,7 @@ const useEmployeeStore = create((set) => ({
     set({ loading: true, error: null });
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("https://shreegopalji.onrender.com/api/users", {
+      const response = await fetch(`${API_URL}/users`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();

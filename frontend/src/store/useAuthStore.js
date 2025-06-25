@@ -1,5 +1,7 @@
 import { create } from "zustand";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const useStore = create((set) => ({
   // Auth state
   user: null,
@@ -11,7 +13,7 @@ const useStore = create((set) => ({
   login: async (username, password) => {
     set({ loading: true, error: null });
     try {
-      const response = await fetch("https://shreegopalji.onrender.com/api/auth/login", {
+      const response = await fetch(`${API_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: username, password }),
@@ -34,7 +36,7 @@ const useStore = create((set) => ({
   signup: async (name, email, password) => {
     set({ loading: true, error: null });
     try {
-      const response = await fetch("https://shreegopalji.onrender.com/api/auth/register", {
+      const response = await fetch(`${API_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
@@ -58,7 +60,7 @@ const useStore = create((set) => ({
   logout: async () => {
     const token = typeof window !== "undefined" && window.localStorage ? localStorage.getItem("token") : null;
     try {
-      await fetch("https://shreegopalji.onrender.com/api/auth/logout", {
+      await fetch(`${API_URL}/api/auth/logout`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
       });

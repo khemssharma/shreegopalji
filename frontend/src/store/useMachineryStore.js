@@ -1,5 +1,7 @@
 import { create } from "zustand";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const useMachineryStore = create((set) => ({
   machinery: [],
   loading: false,
@@ -10,7 +12,7 @@ const useMachineryStore = create((set) => ({
     set({ loading: true, error: null });
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`https://shreegopalji.onrender.com/api/projects/${projectId}/machines`, {
+      const response = await fetch(`${API_URL}/projects/${projectId}/machines`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -36,7 +38,7 @@ const useMachineryStore = create((set) => ({
     set({ loading: true, error: null });
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`https://shreegopalji.onrender.com/api/projects/${projectId}/machines`, {
+      const response = await fetch(`${API_URL}/projects/${projectId}/machines`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();

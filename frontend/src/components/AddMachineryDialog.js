@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button, MenuItem, CircularProgress } from '@mui/material';
+const API_URL = process.env.REACT_APP_API_URL;
 
 const AddMachineryDialog = ({ open, onClose, projectId }) => {
     const [machines, setMachines] = useState([]);
@@ -11,7 +12,7 @@ const AddMachineryDialog = ({ open, onClose, projectId }) => {
     useEffect(() => {
         if (open) {
             setFetching(true);
-            fetch('https://shreegopalji.onrender.com/api/machines')
+            fetch(`${API_URL}/machines`)
                 .then(res => res.json())
                 .then(data => {
                     setMachines(data);
@@ -25,7 +26,7 @@ const AddMachineryDialog = ({ open, onClose, projectId }) => {
         e.preventDefault();
         if (!selectedMachineId || !projectId) return;
         setLoading(true);
-        const res = await fetch('https://shreegopalji.onrender.com/api/machines/assign', {
+        const res = await fetch(`${API_URL}/assign`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ machineId: selectedMachineId, projectId }),

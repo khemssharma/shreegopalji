@@ -1,5 +1,7 @@
 import { create } from "zustand";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const useProjectStore = create((set) => ({
   projects: [],
   loading: false,
@@ -10,7 +12,7 @@ const useProjectStore = create((set) => ({
     set({ loading: true, error: null });
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("https://shreegopalji.onrender.com/api/project", {
+      const response = await fetch(`${API_URL}/project`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -36,7 +38,7 @@ const useProjectStore = create((set) => ({
     set({ loading: true, error: null });
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("https://shreegopalji.onrender.com/api/project", {
+      const response = await fetch(`${API_URL}/project`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();
