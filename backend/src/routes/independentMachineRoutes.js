@@ -11,4 +11,7 @@ router.post('/assign', machineController.assignMachineToProject);
 // Get all machines (independent or all)
 router.get('/', machineController.getMachines);
 
+// Log usage for a machine
+router.post('/:machineId/usage', machineController.logMachineUsage);
+
 module.exports = router;

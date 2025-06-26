@@ -19,6 +19,7 @@ import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import GroupsIcon from '@mui/icons-material/Groups';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import UpdateMachineUsageDialog from '../components/UpdateMachineUsageDialog';
 
 export default function ProjectManagement() {
   const { id } = useParams();
@@ -249,6 +250,10 @@ export default function ProjectManagement() {
 <AddMaterialUsageDialog
   open={updateMaterialUsageDialogOpen}
   onClose={() => setUpdateMaterialUsageDialogOpen(false)}
+/>
+<UpdateMachineUsageDialog
+  open={updateMachineUsageDialogOpen}
+  onClose={() => setUpdateMachineUsageDialogOpen(false)}
 />
     </Box>
   );

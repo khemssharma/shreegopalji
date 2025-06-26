@@ -1,5 +1,6 @@
 const Machine = require('../models/Machine');
 const RefuelHistory = require('../models/RefuelHistory');
+const UsageLog = require('../models/UsageLog');
 
 exports.addMachine = async (req, res) => {
     try {
@@ -124,5 +125,35 @@ exports.getGPS = async (req, res) => {
         res.json(machine.gps);
     } catch (err) {
         res.status(500).json({ error: err.message });
+    }
+};
+
+// Log machine usage
+exports.logMachineUsage = async (req, res) => {
+    try {
+        const { machineId } = req.params;
+        const { hoursUsed, fuelConsumed, remarks, date } = req.body;
+
+        // Optionally validate input here
+
+        // Check if machine exists
+        const machine = await Machine.findById(machineId);
+        if (!machine) return res.status(404).json({ error: 'Machine not found' });
+
+        // Save usage log (customize fields as needed)
+        const usageLog = new UsageLog({
+            vehicleId: machineId,
+            timestamp: date ? new Date(date) : new Date(),
+            rawData: {
+                hoursUsed,
+                fuelConsumed,
+                remarks
+            }
+        });
+        await usageLog.save();
+
+        res.status(201).json({ message: 'Usage logged', usageLog });
+    } catch (err) {
+        res.status(400).json({ error: err.message });
     }
 };
