@@ -23,6 +23,8 @@ const sites = [
 ];
 const materials = [
   { label: "Cement", value: "cement" },
+  { label: "Steel", value: "steel" },
+  { label: "RMC", value: "rmc" },
   { label: "Bitumen", value: "bitumen" },
   { label: "Aggregate", value: "Aggregate" },
   { label: "Soil", value: "soil" },
