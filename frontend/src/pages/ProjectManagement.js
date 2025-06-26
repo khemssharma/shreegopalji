@@ -20,6 +20,7 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import UpdateMachineUsageDialog from '../components/UpdateMachineUsageDialog';
+import UpdateEmployeeAttendanceDialog from '../components/UpdateEmployeeAttendanceDialog';
 
 export default function ProjectManagement() {
   const { id } = useParams();
@@ -255,6 +256,10 @@ export default function ProjectManagement() {
   open={updateMachineUsageDialogOpen}
   onClose={() => setUpdateMachineUsageDialogOpen(false)}
 />
+<UpdateEmployeeAttendanceDialog
+        open={updateEmployeeAttendanceDialogOpen}
+        onClose={() => setUpdateEmployeeAttendanceDialogOpen(false)}
+      />
     </Box>
   );
 }

@@ -38,36 +38,6 @@ Content-Type: application/json
 ### Get all users
 GET http://localhost:5000/api/users
 
-### Log attendance for a user
-POST http://localhost:5000/api/users/attendance
-Content-Type: application/json
-
-{
-  "userId": "REPLACE_WITH_USER_ID",
-  "date": "2025-06-09",
-  "status": "present"
-}
-
-### Get attendance history for a user
-GET http://localhost:5000/api/users/attendance/history?userId=REPLACE_WITH_USER_ID
-
-### Reset password
-POST http://localhost:5000/api/users/reset-password
-Content-Type: application/json
-
-{
-  "email": "siteincharge@example.com"
-}
-
-### Change password
-POST http://localhost:5000/api/users/change-password
-Content-Type: application/json
-
-{
-  "userId": "REPLACE_WITH_USER_ID",
-  "oldPassword": "Password123",
-  "newPassword": "NewPassword456"
-}
 
 ######################### PROJECT CRUD #########################
 
@@ -91,18 +61,6 @@ GET http://localhost:5000/api/project
 ### Get a project by ID
 GET http://localhost:5000/api/project/REPLACE_WITH_PROJECT_ID
 
-### Update a project
-PUT http://localhost:5000/api/project/REPLACE_WITH_PROJECT_ID
-Content-Type: application/json
-Authorization: Bearer {TOKEN}
-
-{
-  "status": "Completed"
-}
-
-### Delete a project
-DELETE http://localhost:5000/api/project/REPLACE_WITH_PROJECT_ID
-Authorization: Bearer {TOKEN}
 
 ######################### MACHINE CRUD & REFUEL #########################
 
@@ -119,33 +77,6 @@ Content-Type: application/json
 
 ### Get all machines for a project
 GET http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/machines
-
-### Get a machine by ID
-GET http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/machines/REPLACE_WITH_MACHINE_ID
-
-### Update a machine
-PUT http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/machines/REPLACE_WITH_MACHINE_ID
-Content-Type: application/json
-
-{
-  "status": "Under Maintenance"
-}
-
-### Log refuel for a machine
-POST http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/machines/REPLACE_WITH_MACHINE_ID/refuel
-Content-Type: application/json
-
-{
-  "litres": 50,
-  "price": 100,
-  "date": "2025-06-09"
-}
-
-### Get refuel history for a machine
-GET http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/machines/REPLACE_WITH_MACHINE_ID/refuel/history
-
-### Get GPS for a machine
-GET http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/machines/REPLACE_WITH_MACHINE_ID/gps
 
 ######################### MATERIAL CRUD & USAGE #########################
 
@@ -173,33 +104,6 @@ Content-Type: application/json
   "quantity": 120
 }
 
-### Log material usage
-POST http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/materials/usage
-Content-Type: application/json
-
-{
-  "materialId": "REPLACE_WITH_MATERIAL_ID",
-  "quantity": 10,
-  "date": "2025-06-09"
-}
-
-### Get material usage history
-GET http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/materials/usage/history
-
-### Get material stock
-GET http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/materials/stock
-
-### Reorder material
-POST http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/materials/reorder
-Content-Type: application/json
-
-{
-  "materialId": "REPLACE_WITH_MATERIAL_ID",
-  "quantity": 50
-}
-
-### Get reorder history
-GET http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/materials/reorder/history
 
 ######################### EMPLOYEE CRUD #########################
 
@@ -232,34 +136,3 @@ Authorization: Bearer {TOKEN}
   "serialNumber": "BDZ-001",
   "fuelCapacity": 300
 }
-
-### Get all machines for a project
-GET http://localhost:5000/api/projects/REPLACE_WITH_PROJECT_ID/machines
-Authorization: Bearer {TOKEN}
-
-#########################    2nd Week June 2025 Target #########################
-
-### Create a machine (independent)
-POST http://localhost:5000/api/machines/create
-Content-Type: application/json
-
-{
-  "name": "Excavator",
-  "type": "Heavy",
-  "serialNumber": "EXC-001",
-  "fuelCapacity": 250
-}
-
-### Assign a machine to a project
-POST http://localhost:5000/api/machines/assign
-Content-Type: application/json
-
-{
-  "machineId": "685b921a04bb65162c023a75",
-  "projectId": "68529eaf4e422e71be4d2135"
-}
-
-### Get all machines
-GET http://localhost:5000/api/machines
-
-
