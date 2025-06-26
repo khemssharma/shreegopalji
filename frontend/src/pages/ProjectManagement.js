@@ -21,6 +21,7 @@ import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import UpdateMachineUsageDialog from '../components/UpdateMachineUsageDialog';
 import UpdateEmployeeAttendanceDialog from '../components/UpdateEmployeeAttendanceDialog';
+import UpdateDailyExpenseDialog from '../components/UpdateDailyExpenseDialog';
 
 export default function ProjectManagement() {
   const { id } = useParams();
@@ -39,6 +40,7 @@ export default function ProjectManagement() {
   const [updateMaterialUsageDialogOpen, setUpdateMaterialUsageDialogOpen] = React.useState(false);
   const [updateMachineUsageDialogOpen, setUpdateMachineUsageDialogOpen] = React.useState(false);
   const [updateEmployeeAttendanceDialogOpen, setUpdateEmployeeAttendanceDialogOpen] = React.useState(false);
+  const [updateDailyExpenseDialogOpen, setUpdateDailyExpenseDialogOpen] = React.useState(false);
 
   React.useEffect(() => {
     if (!projects.length) fetchProjects();
@@ -78,6 +80,7 @@ export default function ProjectManagement() {
   const handleUpdateMaterialUsage = () => setUpdateMaterialUsageDialogOpen(true);
   const handleUpdateMachineUsage = () => setUpdateMachineUsageDialogOpen(true);
   const handleUpdateEmployeeAttendance = () => setUpdateEmployeeAttendanceDialogOpen(true);
+  const handleUpdateDailyExpense = () => setUpdateDailyExpenseDialogOpen(true);
 
   return (
     <Box p={4}>
@@ -180,7 +183,7 @@ export default function ProjectManagement() {
             <Button fullWidth variant="outlined" color="secondary" startIcon={<GroupsIcon />} onClick={handleUpdateEmployeeAttendance}>
               Update Daily Employee Attendance
             </Button>
-            <Button fullWidth variant="outlined" color="success" startIcon={<CurrencyRupeeIcon />}>
+            <Button fullWidth variant="outlined" color="success" startIcon={<CurrencyRupeeIcon />} onClick={handleUpdateDailyExpense}>
               Update Daily Expense
             </Button>
           </Stack>
@@ -259,6 +262,10 @@ export default function ProjectManagement() {
 <UpdateEmployeeAttendanceDialog
         open={updateEmployeeAttendanceDialogOpen}
         onClose={() => setUpdateEmployeeAttendanceDialogOpen(false)}
+      />
+<UpdateDailyExpenseDialog
+        open={updateDailyExpenseDialogOpen}
+        onClose={() => setUpdateDailyExpenseDialogOpen(false)}
       />
     </Box>
   );
