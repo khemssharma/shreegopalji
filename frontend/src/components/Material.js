@@ -105,10 +105,7 @@ export default function MaterialDialog({ open, onClose }) {
           Material Management - Shree Gopalji Infratech Pvt Ltd
         </DialogTitle>
         <DialogContent>
-          <Tabs value={tab} onChange={handleTabChange} centered>
-            <Tab label="Add Dumped Material" />
-            <Tab label="Add Daily Usage" />
-          </Tabs>
+          
           <Box mt={2}>
             {tab === 0 && (
               <form onSubmit={handleDumpedSubmit}>
@@ -209,109 +206,6 @@ export default function MaterialDialog({ open, onClose }) {
                   <Button onClick={onClose}>Cancel</Button>
                   <Button type="submit" variant="contained" color="primary">
                     Add Dumped
-                  </Button>
-                </DialogActions>
-              </form>
-            )}
-            {tab === 1 && (
-              <form onSubmit={handleUsageSubmit}>
-                <Typography variant="subtitle1" gutterBottom>
-                  Record daily material usage at site
-                </Typography>
-                <TextField
-                  select
-                  label="Site"
-                  name="site"
-                  value={usage.site}
-                  onChange={handleUsageChange}
-                  fullWidth
-                  margin="normal"
-                  required
-                >
-                  {sites.map((site) => (
-                    <MenuItem key={site.value} value={site.value}>
-                      {site.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
-                <TextField
-                  select
-                  label="Material"
-                  name="material"
-                  value={usage.material}
-                  onChange={handleUsageChange}
-                  fullWidth
-                  margin="normal"
-                  required
-                >
-                  {materials.map((mat) => (
-                    <MenuItem key={mat.value} value={mat.value}>
-                      {mat.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
-                <TextField
-                  label="Quantity Used"
-                  name="quantity"
-                  type="number"
-                  value={usage.quantity}
-                  onChange={handleUsageChange}
-                  fullWidth
-                  margin="normal"
-                  required
-                />
-                <TextField
-                  select
-                  label="Unit"
-                  name="unit"
-                  value={usage.unit}
-                  onChange={handleUsageChange}
-                  fullWidth
-                  margin="normal"
-                  required
-                >
-                  {units.map((mat) => (
-                    <MenuItem key={mat.value} value={mat.value}>
-                      {mat.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
-                <TextField
-                  label="Date"
-                  name="date"
-                  type="date"
-                  value={usage.date || ""}
-                  onChange={handleUsageChange}
-                  fullWidth
-                  margin="normal"
-                  required
-                  InputLabelProps={{ shrink: true }}
-                />
-                <Box mt={1} mb={2}>
-                  <Button
-                    variant="outlined"
-                    component="label"
-                    startIcon={<AttachFileIcon />}
-                  >
-                    {usage.file ? usage.file.name : "Upload Proof PDF/JPEG/Mp4"}
-                    <input
-                      type="file"
-                      name="file"
-                      accept="application/pdf,image/jpeg,image/png,image/jpg,video/mp4"
-                      hidden
-                      onChange={handleUsageChange}
-                    />
-                  </Button>
-                  {usage.file && (
-                    <Typography variant="caption" sx={{ ml: 2 }}>
-                      {usage.file.name}
-                    </Typography>
-                  )}
-                </Box>
-                <DialogActions>
-                  <Button onClick={onClose}>Cancel</Button>
-                  <Button type="submit" variant="contained" color="primary">
-                    Add Usage
                   </Button>
                 </DialogActions>
               </form>

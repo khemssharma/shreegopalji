@@ -6,6 +6,7 @@ import useProjectStore from "../store/useProjectStore";
 import AddMachineryDialog from '../components/AddMachineryDialog';
 import AddEmployeeDialog from '../components/AddEmployeeDialog';
 import MaterialDialog from '../components/Material';
+import AddMaterialUsageDialog from '../components/AddMaterialUsageDialog';
 import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 
 import Manpower from '../components/Manpower';
@@ -245,40 +246,10 @@ export default function ProjectManagement() {
   onClose={() => setAddEmployeeDialogOpen(false)}
   projectId={project._id}
 />
-
-{/* Simple placeholder dialogs for usage/attendance */}
-<Dialog open={updateMaterialUsageDialogOpen} onClose={() => setUpdateMaterialUsageDialogOpen(false)}>
-  <DialogTitle>Update Material Usage</DialogTitle>
-  <DialogContent>
-    {/* Add your form or content here */}
-    <p>Material usage update form goes here.</p>
-  </DialogContent>
-  <DialogActions>
-    <Button onClick={() => setUpdateMaterialUsageDialogOpen(false)}>Close</Button>
-  </DialogActions>
-</Dialog>
-
-<Dialog open={updateMachineUsageDialogOpen} onClose={() => setUpdateMachineUsageDialogOpen(false)}>
-  <DialogTitle>Update Machine Usage</DialogTitle>
-  <DialogContent>
-    {/* Add your form or content here */}
-    <p>Machine usage update form goes here.</p>
-  </DialogContent>
-  <DialogActions>
-    <Button onClick={() => setUpdateMachineUsageDialogOpen(false)}>Close</Button>
-  </DialogActions>
-</Dialog>
-
-<Dialog open={updateEmployeeAttendanceDialogOpen} onClose={() => setUpdateEmployeeAttendanceDialogOpen(false)}>
-  <DialogTitle>Update Employee Attendance</DialogTitle>
-  <DialogContent>
-    {/* Add your form or content here */}
-    <p>Employee attendance update form goes here.</p>
-  </DialogContent>
-  <DialogActions>
-    <Button onClick={() => setUpdateEmployeeAttendanceDialogOpen(false)}>Close</Button>
-  </DialogActions>
-</Dialog>
+<AddMaterialUsageDialog
+  open={updateMaterialUsageDialogOpen}
+  onClose={() => setUpdateMaterialUsageDialogOpen(false)}
+/>
     </Box>
   );
 }
