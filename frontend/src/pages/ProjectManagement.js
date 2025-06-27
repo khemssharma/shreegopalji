@@ -83,58 +83,88 @@ export default function ProjectManagement() {
   const handleUpdateDailyExpense = () => setUpdateDailyExpenseDialogOpen(true);
 
   return (
-    <Box p={4}>
+
+    <div style={{ fontFamily: 'Segoe UI, sans-serif', background: '#f4f6f8', minHeight: '100vh', padding: '32px' }}>
+          <Box p={4}>
     <section style={{ marginBottom: 32 }}>
                <h1 style={{ color: '#1a237e', margin: 0 }}>Shree Gopalji Infratech Pvt Ltd</h1>
                 <h2 style={{ color: '#3949ab', fontWeight: 400, marginTop: 8 }}>Site Incharges' Dashboard</h2>
             </section>
       <Paper elevation={4} sx={{ p: 3, mb: 4, borderRadius: 3 }}>
-      <div style={{ display: "flex", gap: 24, alignItems: "flex-start" }}>
-        <div style={{ flex: 1 }}>
-          <Typography variant="h4" gutterBottom>
-            <Typography variant="h5" fontWeight={700} color="primary">
-              {project.name}
-            </Typography>
-          </Typography>
-          <Typography variant="subtitle1" color="text.secondary">
-            {project.location}
-          </Typography>
-          <Typography variant="body2" mt={1}>
-            {project.description}
-          </Typography>
-        </div>
-        <img
-          src={imgSrc}
-          alt={project.name}
-          style={{
-            width: 320,
-            height: 220,
-            objectFit: "cover",
-            display: "block",
-            borderRadius: 12,
-          }}
-        />
-      </div>
-      
-      </Paper>
+  <Box
+    sx={{
+      display: "flex",
+      gap: { xs: 2, md: 3 },
+      alignItems: { xs: "stretch", md: "flex-start" },
+      flexDirection: { xs: "column", md: "row" },
+    }}
+  >
+    <Box sx={{ flex: 1 }}>
+      <Typography variant="h4" gutterBottom>
+        <Typography variant="h5" fontWeight={700} color="primary">
+          {project.name}
+        </Typography>
+      </Typography>
+      <Typography variant="subtitle1" color="text.secondary">
+        {project.location}
+      </Typography>
+      <Typography variant="body2" mt={1}>
+        {project.description}
+      </Typography>
+    </Box>
+    <Box
+      sx={{
+        width: { xs: "100%", sm: 320 },
+        maxWidth: 400,
+        height: { xs: 180, sm: 220 },
+        alignSelf: { xs: "center", md: "flex-start" },
+        borderRadius: 2,
+        overflow: "hidden",
+        mb: { xs: 2, md: 0 },
+      }}
+    >
+      <img
+        src={imgSrc}
+        alt={project.name}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          display: "block",
+          borderRadius: 12,
+        }}
+      />
+    </Box>
+  </Box>
+</Paper>
 
-      <Stack direction={{ xs: "column", sm: "row" }} spacing={3} justifyContent="center">
-        {/* Recent Activities */}
-        <Paper
-          elevation={3}
-          sx={{
-            p: 2,
-            flex: 1,
-            minWidth: 0,
-            maxWidth: 400,
-            width: '100%',
-            mx: 'auto',
-            borderRadius: 3,
-            background: '#fff',
-            mt: { xs: 2, md: 0 },
-          }}
-        >
-          <Typography variant="h6" sx={{ mb: 2, fontWeight: 700, color: '#333', textAlign: 'center' }}>
+      <Stack
+  direction={{ xs: "column", md: "row" }}
+  spacing={3}
+  justifyContent="center"
+  alignItems="stretch"
+  sx={{
+    flexWrap: { xs: "wrap", md: "nowrap" },
+    width: "100%",
+    mb: 4,
+  }}
+>
+  {/* Recent Activities */}
+  <Paper
+    elevation={3}
+    sx={{
+      p: { xs: 1.5, sm: 2 },
+      flex: 1,
+      minWidth: 0,
+      maxWidth: { xs: "100%", md: 400 },
+      width: "100%",
+      mx: "auto",
+      borderRadius: 3,
+      background: "#fff",
+      mt: { xs: 2, md: 0 },
+    }}
+  >
+    <Typography variant="h6" sx={{ mb: 2, fontWeight: 700, color: '#333', textAlign: 'center' }}>
             Recent Activities
           </Typography>
           <Divider sx={{ mb: 1 }} />
@@ -154,23 +184,25 @@ export default function ProjectManagement() {
               </ListItem>
             ))}
           </List>
-        </Paper>
-        {/* Update Daily Usage */}
-        <Paper
-          elevation={3}
-          sx={{
-            p: 2,
-            flex: 1,
-            minWidth: 0,
-            maxWidth: 400,
-            width: '100%',
-            mx: 'auto',
-            borderRadius: 3,
-            textAlign: 'center',
-            background: 'linear-gradient(135deg, #e3f0ff 0%, #f3e7ff 100%)',
-          }}
-        >
-          <Typography variant="h6" sx={{ mb: 2, fontWeight: 700, color: '#333' }}>
+  </Paper>
+
+  {/* Update Daily Usage */}
+  <Paper
+    elevation={3}
+    sx={{
+      p: { xs: 1.5, sm: 2 },
+      flex: 1,
+      minWidth: 0,
+      maxWidth: { xs: "100%", md: 400 },
+      width: "100%",
+      mx: "auto",
+      borderRadius: 3,
+      textAlign: "center",
+      background: "linear-gradient(135deg, #e3f0ff 0%, #f3e7ff 100%)",
+      mt: { xs: 2, md: 0 },
+    }}
+  >
+    <Typography variant="h6" sx={{ mb: 2, fontWeight: 700, color: '#333' }}>
             Update Daily Usage
           </Typography>
           <Stack direction="column" spacing={2}>
@@ -187,25 +219,26 @@ export default function ProjectManagement() {
               Update Daily Expense
             </Button>
           </Stack>
-        </Paper>
+  </Paper>
 
-        {/* Add at Site */}
-        <Paper
-          elevation={3}
-          sx={{
-            p: 2,
-            flex: 1,
-            minWidth: 0,
-            maxWidth: 400,
-            width: '100%',
-            mx: 'auto',
-            mb: { xs: 2, md: 0 },
-            borderRadius: 3,
-            textAlign: 'center',
-            background: 'linear-gradient(135deg, #e3f0ff 0%, #f3e7ff 100%)',
-          }}
-        >
-          <Typography variant="h6" sx={{ mb: 2, fontWeight: 700, color: '#333' }}>
+  {/* Add at Site */}
+  <Paper
+    elevation={3}
+    sx={{
+      p: { xs: 1.5, sm: 2 },
+      flex: 1,
+      minWidth: 0,
+      maxWidth: { xs: "100%", md: 400 },
+      width: "100%",
+      mx: "auto",
+      mb: { xs: 2, md: 0 },
+      borderRadius: 3,
+      textAlign: "center",
+      background: "linear-gradient(135deg, #e3f0ff 0%, #f3e7ff 100%)",
+      mt: { xs: 2, md: 0 },
+    }}
+  >
+    <Typography variant="h6" sx={{ mb: 2, fontWeight: 700, color: '#333' }}>
             Add at Site
           </Typography>
           <Stack direction="column" spacing={2}>
@@ -219,8 +252,8 @@ export default function ProjectManagement() {
               Add New Employee At Site
             </Button>
           </Stack>
-        </Paper>
-      </Stack>
+  </Paper>
+</Stack>
 
      
             {manageManpower && (
@@ -268,5 +301,7 @@ export default function ProjectManagement() {
         onClose={() => setUpdateDailyExpenseDialogOpen(false)}
       />
     </Box>
+    </div>
+    
   );
 }
