@@ -145,7 +145,7 @@ const Navbar = () => {
           margin-left: 1rem;
         }
         .navbar-toggle-bar {
-          width: 22px;
+          width: 32px;
           height: 3px;
           background: #fff;
           margin: 3px 0;
@@ -153,7 +153,7 @@ const Navbar = () => {
           transition: 0.3s;
         }
         .navbar-toggle.menu-open .navbar-toggle-bar:nth-child(1) {
-          transform: translateY(6px) rotate(45deg);
+          transform: translateY(12px) rotate(45deg);
         }
         .navbar-toggle.menu-open .navbar-toggle-bar:nth-child(2) {
           opacity: 0;
