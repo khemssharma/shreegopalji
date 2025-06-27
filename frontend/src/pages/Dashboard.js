@@ -19,6 +19,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import useProjectStore from "../store/useProjectStore";
+import MonitorEmployeesDialog from '../components/MonitorEmployeesDialog';
 
 // Default image if project has no images
 const DEFAULT_IMAGE = "https://source.unsplash.com/600x400/?construction,site,infra";
@@ -38,6 +39,7 @@ export default function Dashboard() {
     const [addEmployeeDialogOpen, setAddEmployeeDialogOpen] = React.useState(false);
     const [addMachineryDialogOpen, setAddMachineryDialogOpen] = React.useState(false);
     const [monitorMachineryDialogOpen, setMonitorMachineryDialogOpen] = React.useState(false);
+    const [monitorEmployeesDialogOpen, setMonitorEmployeesDialogOpen] = React.useState(false);
     const { projects, fetchProjects, loading, error } = useProjectStore();
 
     React.useEffect(() => {
@@ -62,7 +64,7 @@ export default function Dashboard() {
     };
 
     const handleMonitorEmployees = () => {
-        // Logic to monitor employees
+        setMonitorEmployeesDialogOpen(true);
     };
 
     const handleMonitorMaterial = () => {
@@ -275,8 +277,7 @@ export default function Dashboard() {
       variant="outlined"
       color="secondary"
       startIcon={<GroupsIcon />}
-      onClick={handleMonitorEmployees}
-      sx={{ py: 1.5, fontWeight: 500 }}
+      onClick={() => setMonitorEmployeesDialogOpen(true)}
       fullWidth
     >
       Monitor Employees
@@ -404,6 +405,10 @@ export default function Dashboard() {
             <MonitorMachineryDialog
                 open={monitorMachineryDialogOpen}
                 onClose={() => setMonitorMachineryDialogOpen(false)}
+            />
+            <MonitorEmployeesDialog
+                open={monitorEmployeesDialogOpen}
+                onClose={() => setMonitorEmployeesDialogOpen(false)}
             />
             
             
