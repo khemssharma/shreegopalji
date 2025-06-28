@@ -42,13 +42,16 @@
 ---
 
 ## 🚀 Future Scope
-- Material delivery, usage, stock tracking & **automated order generation** when stock is empty (loop logic)  
-- Weekly target & progress tracking / milestone setting  
-- **Detection systems** for:
+1. **Automated Material Order Generation** when stock is empty.  
+2. Weekly target & progress tracking / milestone setting  
+3. **Detection systems** for:
   - Payment fraud  
   - Fake machine usage  
   - False attendance  
-- **Site-wise expense & ledger management** with cost/profit calculation  
-- Deployment plans
+4. **Site-wise expense & ledger management** with cost/profit calculation  
+5. Impovement in styles and content of the website.
+6. Domain Needs to be purchased.
+7. Free Tier server is slow. Upgrading to a better Plan is recommended.
+8. Android App needs to be published on Google Play Store (Optional)
 
 ---

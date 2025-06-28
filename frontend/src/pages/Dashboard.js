@@ -7,6 +7,7 @@ import CreateProjectDialog from '../components/CreateProjectDialog';
 import AddEmployeeDialog from '../components/AddEmployeeDialog';
 import AddNewMachineryDialog from '../components/AddNewMachineryDialog';
 import MonitorMachineryDialog from '../components/MonitorMachineryDialog';
+import MonitorMaterialDialog from '../components/MonitorMaterialDialog';
 import { Button, Box, Typography, Chip, CircularProgress, Stack, Paper } from '@mui/material';
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
@@ -40,6 +41,7 @@ export default function Dashboard() {
     const [addMachineryDialogOpen, setAddMachineryDialogOpen] = React.useState(false);
     const [monitorMachineryDialogOpen, setMonitorMachineryDialogOpen] = React.useState(false);
     const [monitorEmployeesDialogOpen, setMonitorEmployeesDialogOpen] = React.useState(false);
+    const [monitorMaterialDialogOpen, setMonitorMaterialDialogOpen] = React.useState(false);
     const { projects, fetchProjects, loading, error } = useProjectStore();
 
     React.useEffect(() => {
@@ -67,9 +69,7 @@ export default function Dashboard() {
         setMonitorEmployeesDialogOpen(true);
     };
 
-    const handleMonitorMaterial = () => {
-        // Logic to monitor material
-    };
+    const handleMonitorMaterial = () => setMonitorMaterialDialogOpen(true);
 
     return (
         <div style={{ fontFamily: 'Segoe UI, sans-serif', background: '#f4f6f8', minHeight: '100vh', padding: '32px' }}>
@@ -409,6 +409,10 @@ export default function Dashboard() {
             <MonitorEmployeesDialog
                 open={monitorEmployeesDialogOpen}
                 onClose={() => setMonitorEmployeesDialogOpen(false)}
+            />
+            <MonitorMaterialDialog
+                open={monitorMaterialDialogOpen}
+                onClose={() => setMonitorMaterialDialogOpen(false)}
             />
             
             
