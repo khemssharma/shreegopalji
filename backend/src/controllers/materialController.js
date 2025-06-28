@@ -1,6 +1,8 @@
 const Material = require('../models/Material');
 const UsageLog = require('../models/UsageLog');
 const ReorderLog = require('../models/ReorderLog');
+const DumpedMaterial = require('../models/DumpedMaterial');
+const path = require('path');
 
 // Add a new material
 exports.addMaterial = async (req, res) => {
@@ -16,8 +18,8 @@ exports.addMaterial = async (req, res) => {
 // Get all materials
 exports.getMaterials = async (req, res) => {
     try {
-        const materials = await Material.find();
-        res.json(materials);
+        const dumpedMaterials = await DumpedMaterial.find();
+        res.json(dumpedMaterials);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -26,7 +28,7 @@ exports.getMaterials = async (req, res) => {
 // Get a single material by ID
 exports.getMaterial = async (req, res) => {
     try {
-        const material = await Material.findById(req.params.id);
+        const material = await DumpedMaterial.findById(req.params.id);
         if (!material) return res.status(404).json({ error: 'Material not found' });
         res.json(material);
     } catch (err) {
@@ -113,4 +115,47 @@ exports.getReorderHistory = async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
+};
+
+// Record dumped material
+exports.recordDumpedMaterial = async (req, res) => {
+  try {
+    const { site, material, quantity, unit, date } = req.body;
+    let fileUrl = null;
+    if (req.file) {
+      fileUrl = `/uploads/${req.file.filename}`;
+    }
+    const dumped = await DumpedMaterial.create({
+      site,
+      material,
+      quantity,
+      unit,
+      date,
+      fileUrl
+    });
+    res.status(201).json(dumped);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
+exports.addUsageToDumpedMaterial = async (req, res) => {
+  try {
+    const { id } = req.params; // DumpedMaterial ID
+    const { site, material, quantity, unit, date } = req.body;
+    let fileUrl = null;
+    if (req.file) {
+      fileUrl = `/uploads/${req.file.filename}`;
+    }
+    const usageEntry = { site, material, quantity, unit, date, fileUrl };
+    const dumpedMaterial = await DumpedMaterial.findByIdAndUpdate(
+      id,
+      { $push: { usage: usageEntry } },
+      { new: true }
+    );
+    if (!dumpedMaterial) return res.status(404).json({ error: 'Dumped material not found' });
+    res.status(201).json(dumpedMaterial);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
 };

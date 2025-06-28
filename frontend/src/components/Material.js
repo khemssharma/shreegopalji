@@ -16,13 +16,15 @@ import {
   IconButton,
 } from "@mui/material";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
+  import { useParams } from "react-router-dom";
 
 // Example data for sites and materials
 const sites = [
-  { value: "Site A", label: "Obedullahganj" },
-  { value: "Site C", label: "Indore" },
-  { value: "Site D", label: "Gwalior" },
-  { value: "Site E", label: "Jabalpur" },
+  { value: "Obedullahganj", label: "Obedullahganj" },
+  { value: "Indore", label: "Indore" },
+  { value: "Rewa-Katni", label: "Rewa-Katni" },
+  { value: "Jabalpur", label: "Jabalpur" },
+  { value: "Itarsi", label: "Itarsi" },
 ];
 const materials = [
   { label: "Cement", value: "cement" },
@@ -40,6 +42,7 @@ const units = [
 ];
 
 export default function MaterialDialog({ open, onClose }) {
+  const { id: projectId } = useParams(); // Get projectId from URL
   const [tab, setTab] = useState(0);
 
   // State for Dumped Material Form
@@ -84,11 +87,42 @@ export default function MaterialDialog({ open, onClose }) {
     }
   };
 
-  const handleDumpedSubmit = (e) => {
+  const handleDumpedSubmit = async (e) => {
     e.preventDefault();
-    // Here you would send dumped data and file to backend (use FormData for file upload)
-    setSnackbar({ open: true, message: "Material dumped recorded!", severity: "success" });
-    setDumped({ site: "", material: "", quantity: "", unit: "", date: new Date().toISOString().split("T")[0], file: null });
+    const formData = new FormData();
+    formData.append("site", dumped.site);
+    formData.append("material", dumped.material);
+    formData.append("quantity", dumped.quantity);
+    formData.append("unit", dumped.unit);
+    formData.append("date", dumped.date);
+    if (dumped.file) formData.append("file", dumped.file);
+
+    try {
+      const res = await fetch(
+        `${process.env.REACT_APP_API_URL}/projects/${projectId}/materials/dumped`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      if (!res.ok) throw new Error("Failed to record dumped material");
+      setSnackbar({
+        open: true,
+        message: "Material dumped recorded!",
+        severity: "success",
+      });
+      setDumped({
+        site: "",
+        material: "",
+        quantity: "",
+        unit: "",
+        date: new Date().toISOString().split("T")[0],
+        file: null,
+      });
+      onClose();
+    } catch (err) {
+      setSnackbar({ open: true, message: err.message, severity: "error" });
+    }
   };
 
   const handleUsageSubmit = (e) => {

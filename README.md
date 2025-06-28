@@ -21,6 +21,11 @@
 - `GET /api/project` – Get all projects' details
 - `GET /api/project/:id` – Get any project's details
 
+### 🧱Material Management
+- `POST /api/materials/dumped` - Add a new Material to Site
+- `GET /api/materials/` - Get details of all dumped Material
+- `POST /dumped/:id/usage` - Update Material Usage
+
 ### 🏗️ Machine Management
 - `POST /api/machines/create` – Add a new machine  
 - `POST /api/machines/assign` – Assign a machine to a project  

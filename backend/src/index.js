@@ -35,6 +35,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/machines', independentMachineRoutes);
 app.use('/api/projects/:projectId/machines', machineRoutes);
 app.use('/api/projects/:projectId/materials', materialRoutes);
+app.use('/api/materials', materialRoutes);
 
 // Basic route
 app.get('/', (req, res) => {

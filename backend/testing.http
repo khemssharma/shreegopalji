@@ -104,6 +104,9 @@ Content-Type: application/json
   "quantity": 120
 }
 
+### Get all dumped materials
+GET http://localhost:5000/api/materials
+
 
 ######################### EMPLOYEE CRUD #########################
 
