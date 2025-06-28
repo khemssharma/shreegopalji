@@ -1,12 +1,14 @@
+![Dashboard Screenshot](./Capture.PNG)
+![Project Managemennt Screenshot](./Project.PNG)
 # Documentation Of Work
 
 **Date:** 28-06-2025  
 **Author:** Ayush Sharma  
-**Project:** Shree-Gopal-ji — Centralized System + Website ✅
+**Project:** Shree-Gopal-ji — Centralized System + Website 
 
 ---
 
-## ✅ Successfully Integrated API Endpoints
+## Successfully Integrated API Endpoints
 
 ### 🔐 Authentication
 - `POST /api/auth/register` – Sign up a new user  
@@ -16,14 +18,14 @@
 
 ### 📁 Project Management
 - `POST /api/project/` – Create a new project  
-- `GET /api/project` – Get all projects  
-- `GET /api/project/:id` – Get project details by ID  
+- `GET /api/project` – Get all projects' details
+- `GET /api/project/:id` – Get any project's details
 
 ### 🏗️ Machine Management
 - `POST /api/machines/create` – Add a new machine  
 - `POST /api/machines/assign` – Assign a machine to a project  
-- `GET /api/machines` – Get all machine details  
-- `POST /api/machines/:<machineId>/usage` – Get machine usage by ID  
+- `GET /api/machines` – Get all machine's details  
+- `POST /api/machines/:<machineId>/usage` – Update any machine's usage  
 
 ### 👷 Employee Management
 - `POST /api/users` – Add a new user  
