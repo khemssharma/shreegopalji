@@ -127,6 +127,8 @@ const Navbar = () => {
           border: none;
           cursor: pointer;
           padding: 0;
+          margin-left: 1rem;
+
         }
         .navbar-links li a:hover,
         .navbar-link-btn:hover {

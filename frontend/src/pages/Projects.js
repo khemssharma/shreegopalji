@@ -1,11 +1,12 @@
 import React from "react";
 
+// All images are now road/expressway themed Unsplash images
 const projects = [
     {
         title: "Residential Complex - Gopalji Heights",
         description:
             "A premium residential project offering modern amenities, lush green surroundings, and excellent connectivity. Designed for comfort and luxury.",
-        image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",
+        image: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=600&q=80", // Road
         location: "Lucknow, Uttar Pradesh",
         status: "Completed",
     },
@@ -13,7 +14,7 @@ const projects = [
         title: "Commercial Plaza - SGIPL Business Park",
         description:
             "A state-of-the-art commercial hub with office spaces, retail outlets, and ample parking. Perfect for growing businesses.",
-        image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80",
+        image: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80", // Road
         location: "Kanpur, Uttar Pradesh",
         status: "Ongoing",
     },
@@ -21,9 +22,31 @@ const projects = [
         title: "Affordable Housing - Gopalji Enclave",
         description:
             "Affordable and quality housing for families, with parks, community centers, and secure gated access.",
-        image: "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=600&q=80",
+        image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=600&q=80", // Road
         location: "Prayagraj, Uttar Pradesh",
         status: "Upcoming",
+    },
+    // --- Highway/Expressway Projects ---
+    {
+        title: "Nasrullahganj-Sandalpur Expressway",
+        description: "A major expressway project connecting Nasrullahganj and Sandalpur, enhancing regional connectivity and economic growth.",
+        image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80", // Road
+        location: "Madhya Pradesh",
+        status: "Completed in 2025",
+    },
+    {
+        title: "Chittorgarh-Kota",
+        description: "A completed residential project along the Chittorgarh-Kota corridor, providing modern infrastructure and amenities.",
+        image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80", // Road
+        location: "Rajasthan",
+        status: "Completed in 2025",
+    },
+    {
+        title: "Sanchi Expressway",
+        description: "A completed expressway project at Sanchi, facilitating faster travel and development in the region.",
+        image: "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=600&q=80", // Road
+        location: "Madhya Pradesh",
+        status: "Completed in 2025",
     },
 ];
 
@@ -54,7 +77,7 @@ const ProjectCard = ({ project }) => (
                 display: "inline-block",
                 padding: "4px 12px",
                 borderRadius: "8px",
-                background: project.status === "Completed" ? "#4caf50" : project.status === "Ongoing" ? "#ff9800" : "#2196f3",
+                background: project.status.includes("Completed") ? "#4caf50" : project.status === "Ongoing" ? "#ff9800" : "#2196f3",
                 color: "#fff",
                 fontWeight: "bold",
                 fontSize: "0.9em"
