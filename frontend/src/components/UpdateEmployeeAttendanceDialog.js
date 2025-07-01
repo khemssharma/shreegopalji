@@ -14,10 +14,12 @@ export default function UpdateEmployeeAttendanceDialog({ open, onClose }) {
     status: "",
     date: new Date().toISOString().split("T")[0],
     remarks: "",
+    location: null, // { lat, lng }
   });
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(false);
   const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
+  const [loadingLoc, setLoadingLoc] = useState(false);
 
   // Fetch all users when dialog opens
   useEffect(() => {
@@ -39,6 +41,7 @@ export default function UpdateEmployeeAttendanceDialog({ open, onClose }) {
         status: '',
         date: new Date().toISOString().split("T")[0],
         remarks: '',
+        location: null,
       });
     }
   }, [open]);
@@ -46,6 +49,26 @@ export default function UpdateEmployeeAttendanceDialog({ open, onClose }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setAttendance((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleGetLocation = () => {
+    setLoadingLoc(true);
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setAttendance((prev) => ({
+          ...prev,
+          location: {
+            lat: pos.coords.latitude,
+            lng: pos.coords.longitude,
+          },
+        }));
+        setLoadingLoc(false);
+      },
+      () => {
+        setSnackbar({ open: true, message: "Unable to fetch location.", severity: "error" });
+        setLoadingLoc(false);
+      }
+    );
   };
 
   const handleSubmit = async (e) => {
@@ -69,6 +92,7 @@ export default function UpdateEmployeeAttendanceDialog({ open, onClose }) {
           status: '',
           date: new Date().toISOString().split("T")[0],
           remarks: '',
+          location: null,
         });
         onClose();
       } else {
@@ -149,6 +173,36 @@ export default function UpdateEmployeeAttendanceDialog({ open, onClose }) {
                 multiline
                 rows={2}
               />
+              <Box sx={{ mt: 2, mb: 2 }}>
+                <Button
+                  variant="outlined"
+                  onClick={handleGetLocation}
+                  disabled={loadingLoc}
+                >
+                  {loadingLoc ? "Fetching Location..." : "Upload Location"}
+                </Button>
+                {attendance.location && (
+                  <Box sx={{ mt: 1 }}>
+                    <iframe
+                      title="Google Map"
+                      width="100%"
+                      height="180"
+                      frameBorder="0"
+                      style={{ borderRadius: 8 }}
+                      src={`https://maps.google.com/maps?q=${attendance.location.lat},${attendance.location.lng}&z=16&output=embed`}
+                      allowFullScreen
+                    />
+                    <Box sx={{ fontSize: 12, color: "#555", mt: 1 }}>
+                      Lat: {attendance.location.lat.toFixed(5)}, Lng: {attendance.location.lng.toFixed(5)}
+                    </Box>
+                  </Box>
+                )}
+                {!attendance.location && (
+                  <Box sx={{ fontSize: 12, color: "#888", mt: 1 }}>
+                    (You may submit without location)
+                  </Box>
+                )}
+              </Box>
               <DialogActions>
                 <Button onClick={onClose} disabled={loading}>Cancel</Button>
                 <Button type="submit" variant="contained" color="secondary" disabled={loading || !selectedUser}>

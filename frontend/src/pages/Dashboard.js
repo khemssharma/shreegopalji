@@ -2,7 +2,7 @@ import React from 'react';
 import useStore from '../store/useAuthStore';
 import { useNavigate } from "react-router-dom";
 import MaterialDialog from '../components/Material';
-import Manpower from '../components/Manpower';
+
 import CreateProjectDialog from '../components/CreateProjectDialog';
 import AddEmployeeDialog from '../components/AddEmployeeDialog';
 import AddNewMachineryDialog from '../components/AddNewMachineryDialog';
@@ -34,7 +34,6 @@ const recentActivities = [
 export default function Dashboard() {
     const navigate = useNavigate();
     const logout = useStore((state) => state.logout);
-    const  [manageManpower, setManageManpower] = React.useState(false);
     const  [manageMaterial, setManageMaterial] = React.useState(false);
     const [createProjectDialogOpen, setCreateProjectDialogOpen] = React.useState(false);
     const [addEmployeeDialogOpen, setAddEmployeeDialogOpen] = React.useState(false);
@@ -377,13 +376,7 @@ export default function Dashboard() {
                         `}
                         </style>
             
-            {manageManpower && (
-                <Manpower
-                    open={manageManpower}
-                    onClose={() => setManageManpower(false)}
-                    onRequest={() => {/* Optionally refresh activities */}}
-                />
-            )}
+            
             {manageMaterial && (
                 <MaterialDialog
                     open={manageMaterial}

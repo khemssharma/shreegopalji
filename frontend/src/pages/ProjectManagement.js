@@ -7,14 +7,11 @@ import AddMachineryDialog from '../components/AddMachineryDialog';
 import AddEmployeeDialog from '../components/AddEmployeeDialog';
 import MaterialDialog from '../components/Material';
 import AddMaterialUsageDialog from '../components/AddMaterialUsageDialog';
-import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 
-import Manpower from '../components/Manpower';
 
 import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import UpdateIcon from '@mui/icons-material/Update';
 import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import GroupsIcon from '@mui/icons-material/Groups';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
@@ -29,8 +26,6 @@ export default function ProjectManagement() {
   const [project, setProject] = React.useState(null);
 
   // State for managing dialogs
-  const [manageMachinery, setManageMachinery] = React.useState(false);
-  const [manageManpower, setManageManpower] = React.useState(false);
   const [manageMaterial, setManageMaterial] = React.useState(false);
 
   const [addMachineDialogOpen, setAddMachineDialogOpen] = React.useState(false);
@@ -256,13 +251,7 @@ export default function ProjectManagement() {
 </Stack>
 
      
-            {manageManpower && (
-                <Manpower
-                    open={manageManpower}
-                    onClose={() => setManageManpower(false)}
-                    onRequest={() => {/* Optionally refresh activities */}}
-                />
-            )}
+            
             {manageMaterial && (
                 <MaterialDialog
                     open={manageMaterial}
