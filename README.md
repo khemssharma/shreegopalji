@@ -1,5 +1,4 @@
-![Dashboard Screenshot](./Capture.PNG)
-![Project Managemennt Screenshot](./Project.PNG)
+![Diagram](./Diagram.jpg)
 # Documentation Of Work
 
 **Date:** 28-06-2025  
