@@ -2,6 +2,8 @@ import React from "react";
 import "./Home.css"; 
 import Roads from "../assets/infra.avif";
 import heroImg from "../assets/hero.jpg"
+import  {  CompletedProjects } from "./Projects";
+
 
 const Home = () => (
   <div className="home-container">
@@ -48,38 +50,7 @@ const Home = () => (
     </section>
 
     {/* Projects Section */}
-    <section className="projects-section">
-      <h2>Completed Projects</h2>
-      <div className="projects-list">
-        <div className="project-card">
-          <img
-            src={Roads}
-            alt="Residential Projects"
-            style={{ width: "100%", height: "180px", objectFit: "cover", borderRadius: "8px", marginBottom: "1rem" }}
-          />
-          <h4>Nasrullahganj-Sandalpur Expressway</h4>
-          <p>Completed in 2025.</p>
-        </div>
-        <div className="project-card">
-          <img
-            src={Roads}
-            alt="Residential Projects"
-            style={{ width: "100%", height: "180px", objectFit: "cover", borderRadius: "8px", marginBottom: "1rem" }}
-          />
-          <h4>Chittorgarh-Kota</h4>
-          <p>Completed in 2025.</p>
-        </div>
-        <div className="project-card">
-          <img
-            src={Roads}
-            alt="Residential Projects"
-            style={{ width: "100%", height: "180px", objectFit: "cover", borderRadius: "8px", marginBottom: "1rem" }}
-          />
-          <h4>Sanchi Expressway</h4>
-          <p>Completed in 2025.</p>
-        </div>
-      </div>
-    </section>
+    <CompletedProjects/>
 
     {/* Contact Section */}
       <div style={{ maxWidth: '75%', margin: "40px auto", padding: 24, background: "#fff", borderRadius: 8, boxShadow: "0 2px 12px rgba(0,0,0,0.08)" }}>

@@ -1,52 +1,91 @@
 import React from "react";
 
-// All images are now road/expressway themed Unsplash images
+// All images are now real road/expressway themed
 const projects = [
     {
-        title: "Residential Complex - Gopalji Heights",
+        title: "Chittorgarh-Kota Expressway",
         description:
-            "A premium residential project offering modern amenities, lush green surroundings, and excellent connectivity. Designed for comfort and luxury.",
-        image: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=600&q=80", // Road
-        location: "Lucknow, Uttar Pradesh",
-        status: "Completed",
-    },
-    {
-        title: "Commercial Plaza - SGIPL Business Park",
-        description:
-            "A state-of-the-art commercial hub with office spaces, retail outlets, and ample parking. Perfect for growing businesses.",
-        image: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80", // Road
-        location: "Kanpur, Uttar Pradesh",
-        status: "Ongoing",
-    },
-    {
-        title: "Affordable Housing - Gopalji Enclave",
-        description:
-            "Affordable and quality housing for families, with parks, community centers, and secure gated access.",
-        image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=600&q=80", // Road
-        location: "Prayagraj, Uttar Pradesh",
-        status: "Upcoming",
-    },
-    // --- Highway/Expressway Projects ---
-    {
-        title: "Nasrullahganj-Sandalpur Expressway",
-        description: "A major expressway project connecting Nasrullahganj and Sandalpur, enhancing regional connectivity and economic growth.",
-        image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80", // Road
-        location: "Madhya Pradesh",
-        status: "Completed in 2025",
-    },
-    {
-        title: "Chittorgarh-Kota",
-        description: "A completed residential project along the Chittorgarh-Kota corridor, providing modern infrastructure and amenities.",
-        image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80", // Road
+            "A completed expressway project connecting Chittorgarh and Kota, boosting connectivity and economic growth in Rajasthan.",
+        image: "https://etimg.etb2bimg.com/photo/120061326.cms", // Road
         location: "Rajasthan",
         status: "Completed in 2025",
     },
     {
         title: "Sanchi Expressway",
-        description: "A completed expressway project at Sanchi, facilitating faster travel and development in the region.",
-        image: "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=600&q=80", // Road
+        description: "A major expressway project at Sanchi, facilitating faster travel and regional development in Madhya Pradesh.",
+        image: "https://static2.tripoto.com/media/filter/tst/img/1821754/SpotDocument/1593177763_1593177752236.jpg.webp", // Road
+        location: "Bhopal, Madhya Pradesh",
+        status: "Completed in 2025",
+    },
+    {
+        title: "Indore-Dhar Road Maintenance",
+        description: "Upgradation and maintenance of the Indore-Dhar road, ensuring smooth transit and improved safety standards.",
+        image: "https://infrastructurereportcard.org/wp-content/uploads/2017/01/roads-slide-in_Mt-Vernon-VA-Road-Gordon-Chaffin-1.jpg", // Road
+        location: "Indore, Madhya Pradesh",
+        status: "Completed in 2025",
+    },
+    {
+        title: "Tiger Coridor Expressway",
+        description: "A strategic expressway project through the Tiger Corridor, enhancing wildlife connectivity and eco-tourism.",
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Road_in_Norway.jpg/1200px-Road_in_Norway.jpg", // Road
         location: "Madhya Pradesh",
         status: "Completed in 2025",
+    },
+    {
+        title: "Service Road",
+        description:
+            "Construction of service roads for better local access and traffic management alongside main expressways.",
+        image: "https://content.jdmagicbox.com/comp/damoh/c3/9999p7812.7812.190727071442.u4c3/catalogue/geetanjali-pavers-production-road-damoh-paver-block-dealers-i6j2kf64dl.jpg", // Road
+        location: "Obedullaganj, Madhya Pradesh",
+        status: "Ongoing",
+    },
+    {
+        title: "Entry-Exit System for Expressway",
+        description:
+            "Development of modern entry and exit systems for expressways, ensuring smooth and safe vehicle movement.",
+        image: "https://www.sehinc.com/hs-fs/hubfs/Website/Blog-News/interchanges/AWI_002.jpg?width=1000&name=AWI_002.jpg", // Road
+        location: "Itarsi, Madhya Pradesh",
+        status: "Ongoing",
+    },
+    {
+        title: "Public Sanitary Utility",
+        description:
+            "Construction of public sanitary utilities along highways for the convenience and hygiene of travelers.",
+        image: "https://pbs.twimg.com/media/Etsyn3yUUAEKDp9.jpg:large", // Road
+        location: "Jabalpur, Madhya Pradesh",
+        status: "Ongoing",
+    },
+    {
+        title: "Sandalpur-Nasrullahganj Expressway",
+        description:
+            "A vital expressway project connecting Sandalpur and Nasrullahganj, improving regional transport and logistics.",
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Road_in_Norway.jpg/1200px-Road_in_Norway.jpg", // Road
+        location: "Nasrullahganj, Madhya Pradesh",
+        status: "Ongoing",
+    },
+    {
+        title: "Canal Crossing Structure",
+        description:
+            "Engineering and construction of canal crossing structures to support uninterrupted road connectivity.",
+        image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihao0I_ErM43XHNoqS4fs5RbDdCgyN-XfPARB2_h3a2urJ0qqwm2nyuhMNBRFH6ypDAX07WIkEdGC63Qu3Iec1MyyRtov3Cu6_y38Fd1gd75tQzJvA27yZgR3hcjq8T5R-O9_d6ARk5Kjy/?imgmax=800", // Road
+        location: "Rewa-Katni, Madhya Pradesh",
+        status: "Ongoing",
+    },
+    {
+        title: "Tiger Coridor Expressway",
+        description:
+            "Ongoing expansion of the Tiger Corridor Expressway to further enhance connectivity and eco-tourism.",
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Road_in_Norway.jpg/1200px-Road_in_Norway.jpg", // Road
+        location: "Madhya Pradesh",
+        status: "Ongoing",
+    },
+    {
+        title: "Indore-Dewas Expressway",
+        description:
+            "Construction of the Indore-Dewas Expressway, a key route for industrial and passenger traffic.",
+        image: "https://infrastructurereportcard.org/wp-content/uploads/2017/01/roads-slide-in_Mt-Vernon-VA-Road-Gordon-Chaffin-1.jpg", // Road
+        location: "Dewas, Madhya Pradesh",
+        status: "Ongoing",
     },
 ];
 
@@ -115,4 +154,36 @@ const Projects = () => (
     </div>
 );
 
-export default Projects;
+const CompletedProjects = () => {
+    const completed = projects.filter(
+        (p) => p.status && p.status.toLowerCase().includes("completed")
+    );
+    return (
+        <div style={{
+            minHeight: "100vh",
+            background: "linear-gradient(135deg, #e3f2fd 0%, #fffde7 100%)",
+            padding: "40px 0"
+        }}>
+            <div style={{ textAlign: "center", marginBottom: "40px" }}>
+                <h1 style={{ color: "#0d47a1", fontSize: "2.8em", margin: 0 }}>
+                    Completed Projects
+                </h1>
+                <p style={{ color: "#444", fontSize: "1.2em", marginTop: "10px" }}>
+                    Explore the completed landmark projects delivered by Shree Gopalji Infratech Pvt. Ltd.
+                </p>
+            </div>
+            <div style={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+                gap: "20px"
+            }}>
+                {completed.map((project, idx) => (
+                    <ProjectCard key={idx} project={project} />
+                ))}
+            </div>
+        </div>
+    );
+};
+
+export { Projects, CompletedProjects };
