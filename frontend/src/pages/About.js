@@ -1,7 +1,8 @@
 import React from "react";
 import "./About.css";
-import GM from "../assets/gm.avif";
-import MD from "../assets/md.avif";
+import Avatar from "@mui/material/Avatar";
+import PersonIcon from "@mui/icons-material/Person";
+import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 
 const About = () => (
   <div className="about-container" style={{ padding: "2rem", maxWidth: 900, margin: "auto" }}>
@@ -51,12 +52,9 @@ const About = () => (
       <h2>Leadership</h2>
       <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap", marginBottom: "1rem" }}>
         <div style={{ flex: "1 1 200px", textAlign: "center" }}>
-          <img
-            src={MD}
-            alt="Gourav Thapak - Managing Director"
-            style={{ width: "120px", height: "120px", borderRadius: "50%", objectFit: "cover", marginBottom: "0.5rem" }}
-            onError={e => { e.target.onerror = null; e.target.src = "https://via.placeholder.com/120?text=No+Image"; }}
-          />
+          <Avatar sx={{ width: 120, height: 120, margin: "0 auto 0.5rem", bgcolor: "#1976d2" }}>
+            <SupervisorAccountIcon sx={{ fontSize: 64 }} />
+          </Avatar>
           <h3>Managing Director</h3>
           <strong>Gourav Thapak</strong>
           <p style={{ fontSize: "0.95rem", marginTop: "0.5rem" }}>
@@ -64,12 +62,9 @@ const About = () => (
           </p>
         </div>
         <div style={{ flex: "1 1 200px", textAlign: "center" }}>
-          <img
-            src={GM}
-            alt="Ashish Dantre - General Manager"
-            style={{ width: "120px", height: "120px", borderRadius: "50%", objectFit: "cover", marginBottom: "0.5rem" }}
-            onError={e => { e.target.onerror = null; e.target.src = "https://via.placeholder.com/120?text=No+Image"; }}
-          />
+          <Avatar sx={{ width: 120, height: 120, margin: "0 auto 0.5rem", bgcolor: "#388e3c" }}>
+            <PersonIcon sx={{ fontSize: 64 }} />
+          </Avatar>
           <h3>General Manager</h3>
           <strong>Ashish Dantre</strong>
           <p style={{ fontSize: "0.95rem", marginTop: "0.5rem" }}>
