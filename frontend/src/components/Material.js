@@ -111,9 +111,9 @@ export default function MaterialDialog({ open, onClose }) {
       );
       if (!res.ok) throw new Error("Failed to record dumped material");
 
-      // 2. Log activity (new activities API)
+      // 2. Log activity as "Material Delivered at site" (activities API)
       const token = localStorage.getItem("token");
-      await fetch(`${process.env.REACT_APP_API_URL}/activities`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/activities`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -121,14 +121,14 @@ export default function MaterialDialog({ open, onClose }) {
         },
         body: JSON.stringify({
           projectId,
-          activity: `Material dumped: ${dumped.material} (${dumped.quantity} ${dumped.unit}) at ${dumped.site}`,
+          activity: `Material Delivered at site: ${dumped.material} (${dumped.quantity} ${dumped.unit}) at ${dumped.site}`,
           details: {
             ...dumped,
             file: dumped.file ? dumped.file.name : undefined,
           },
         }),
       });
-
+      console.log(response);
       // 3. Refresh activities in store
       await fetchActivities(projectId);
 

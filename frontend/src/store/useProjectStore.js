@@ -84,23 +84,23 @@ const useProjectStore = create((set) => ({
   },
 
   // Fetch activities by project ID
-  fetchActivities: async (projectId) => {
-    set({ loading: true, error: null });
-    try {
-      const token = localStorage.getItem("token");
-      const response = await fetch(`${API_URL}/activity?projectId=${projectId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const data = await response.json();
-      if (!response.ok) {
-        set({ loading: false, error: data.error || "Failed to fetch activities." });
-        return;
-      }
-      set({ activities: data, loading: false, error: null });
-    } catch (err) {
-      set({ loading: false, error: "Network error. Please try again." });
-    }
-  },
+  // fetchActivities: async (projectId) => {
+  //   set({ loading: true, error: null });
+  //   try {
+  //     const token = localStorage.getItem("token");
+  //     const response = await fetch(`${API_URL}/activity?projectId=${projectId}`, {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     });
+  //     const data = await response.json();
+  //     if (!response.ok) {
+  //       set({ loading: false, error: data.error || "Failed to fetch activities." });
+  //       return;
+  //     }
+  //     set({ activities: data, loading: false, error: null });
+  //   } catch (err) {
+  //     set({ loading: false, error: "Network error. Please try again." });
+  //   }
+  // },
 }));
 
 export default useProjectStore;
