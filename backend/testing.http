@@ -139,3 +139,24 @@ Authorization: Bearer {TOKEN}
   "serialNumber": "BDZ-001",
   "fuelCapacity": 300
 }
+
+######################### ACTIVITY ROUTES TESTING #########################
+
+### Create a new activity (replace {TOKEN} and {PROJECT_ID})
+POST http://localhost:5000/api/activities
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Njc5ZWVhNGFkNjZkNzhhMmM4M2NlMCIsImVtYWlsIjoidGVzdHVzZXIyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzUxNjIxMzU4LCJleHAiOjE3NTIyMjYxNTh9.dbCR7cNHdAGkjk4Z3KV0MAMX13s58SEDSl8x2YRnw6g
+
+{
+  "projectId": "68529c564e422e71be4d2131",
+  "activity": "Test activity from HTTP file",
+  "details": {
+    "info": "This is a test activity",
+    "material": "Cement",
+    "quantity": 10,
+    "unit": "bag"
+  }
+}
+
+### Get all activities (all projects)
+GET http://localhost:5000/api/activities

@@ -25,12 +25,6 @@ import MonitorEmployeesDialog from '../components/MonitorEmployeesDialog';
 // Default image if project has no images
 const DEFAULT_IMAGE = "https://source.unsplash.com/600x400/?construction,site,infra";
 
-const recentActivities = [
-    { time: '10:30 AM', activity: 'Material received at Site A' },
-    { time: '09:15 AM', activity: 'Safety audit completed at Site B' },
-    { time: 'Yesterday', activity: 'Progress report submitted for Site C' },
-];
-
 export default function Dashboard() {
     const navigate = useNavigate();
     const logout = useStore((state) => state.logout);
@@ -42,10 +36,26 @@ export default function Dashboard() {
     const [monitorEmployeesDialogOpen, setMonitorEmployeesDialogOpen] = React.useState(false);
     const [monitorMaterialDialogOpen, setMonitorMaterialDialogOpen] = React.useState(false);
     const { projects, fetchProjects, loading, error } = useProjectStore();
+    const [recentActivities, setRecentActivities] = React.useState([]);
 
     React.useEffect(() => {
         fetchProjects();
     }, [fetchProjects]);
+
+    // Fetch activities from backend on mount
+    React.useEffect(() => {
+        async function fetchActivities() {
+            try {
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/activities`);
+                if (!res.ok) throw new Error("Failed to fetch activities");
+                const data = await res.json();
+                setRecentActivities(data.slice(0, 10)); // Show latest 10 activities
+            } catch (err) {
+                setRecentActivities([]);
+            }
+        }
+        fetchActivities();
+    }, []);
 
     const handleLogout = async () => {
         await logout();
@@ -234,12 +244,18 @@ export default function Dashboard() {
                             >
                                 <h3 style={{ color: '#1a237e', marginBottom: 16 }}>Recent Activities</h3>
                                 <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                                    {recentActivities.map((item, idx) => (
-                                        <li key={idx} style={{ marginBottom: 12, borderBottom: '1px solid #eee', paddingBottom: 8 }}>
-                                            <span style={{ color: '#3949ab', fontWeight: 500 }}>{item.time}</span>
-                                            <span style={{ marginLeft: 12 }}>{item.activity}</span>
-                                        </li>
-                                    ))}
+                                    {recentActivities.length === 0 ? (
+                                        <li>No recent activities.</li>
+                                    ) : (
+                                        recentActivities.map((item, idx) => (
+                                            <li key={idx} style={{ marginBottom: 12, borderBottom: '1px solid #eee', paddingBottom: 8 }}>
+                                                <span style={{ color: '#3949ab', fontWeight: 500 }}>
+                                                    {item.time ? new Date(item.time).toLocaleString() : ""}
+                                                </span>
+                                                <span style={{ marginLeft: 12 }}>{item.activity}</span>
+                                            </li>
+                                        ))
+                                    )}
                                 </ul>
                             </div>
                             <div

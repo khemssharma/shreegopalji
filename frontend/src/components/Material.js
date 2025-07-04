@@ -16,7 +16,8 @@ import {
   IconButton,
 } from "@mui/material";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
-  import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import useProjectStore from "../store/useProjectStore";
 
 // Example data for sites and materials
 const sites = [
@@ -42,7 +43,7 @@ const units = [
 ];
 
 export default function MaterialDialog({ open, onClose }) {
-  const { id: projectId } = useParams(); // Get projectId from URL
+  const { id: projectId } = useParams();
   const [tab, setTab] = useState(0);
 
   // State for Dumped Material Form
@@ -66,6 +67,8 @@ export default function MaterialDialog({ open, onClose }) {
   });
 
   const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
+
+  const fetchActivities = useProjectStore((state) => state.fetchActivities);
 
   const handleTabChange = (e, newValue) => setTab(newValue);
 
@@ -98,6 +101,7 @@ export default function MaterialDialog({ open, onClose }) {
     if (dumped.file) formData.append("file", dumped.file);
 
     try {
+      // 1. Add dumped material (existing API)
       const res = await fetch(
         `${process.env.REACT_APP_API_URL}/projects/${projectId}/materials/dumped`,
         {
@@ -106,9 +110,31 @@ export default function MaterialDialog({ open, onClose }) {
         }
       );
       if (!res.ok) throw new Error("Failed to record dumped material");
+
+      // 2. Log activity (new activities API)
+      const token = localStorage.getItem("token");
+      await fetch(`${process.env.REACT_APP_API_URL}/activities`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          projectId,
+          activity: `Material dumped: ${dumped.material} (${dumped.quantity} ${dumped.unit}) at ${dumped.site}`,
+          details: {
+            ...dumped,
+            file: dumped.file ? dumped.file.name : undefined,
+          },
+        }),
+      });
+
+      // 3. Refresh activities in store
+      await fetchActivities(projectId);
+
       setSnackbar({
         open: true,
-        message: "Material dumped recorded!",
+        message: "Material dumped recorded and activity added!",
         severity: "success",
       });
       setDumped({

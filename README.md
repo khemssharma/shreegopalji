@@ -9,6 +9,10 @@
 
 ## Successfully Integrated API Endpoints
 
+### ⚒ Activities
+- `POST http://localhost:5000/api/activities` – Create an Activity
+- `GET http://localhost:5000/api/activities` – Get all Activities
+
 ### 🔐 Authentication
 - `POST /api/auth/register` – Sign up a new user  
 - `POST /api/auth/login` – Login a user  

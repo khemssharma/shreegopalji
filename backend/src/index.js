@@ -10,6 +10,7 @@ const userRoutes = require('./routes/userRoutes');
 const machineRoutes = require('./routes/machineRoutes');
 const materialRoutes = require('./routes/materialRoutes');
 const independentMachineRoutes = require('./routes/independentMachineRoutes');
+const activityRoutes = require('./routes/activityRoutes');
 dotenv.config();
 
 // Connect to database
@@ -36,6 +37,7 @@ app.use('/api/machines', independentMachineRoutes);
 app.use('/api/projects/:projectId/machines', machineRoutes);
 app.use('/api/projects/:projectId/materials', materialRoutes);
 app.use('/api/materials', materialRoutes);
+app.use('/api/activities', activityRoutes);
 
 // Basic route
 app.get('/', (req, res) => {
