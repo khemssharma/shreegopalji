@@ -52,9 +52,3 @@
   - Fake machine usage  
   - False attendance  
 4. **Site-wise expense & ledger management** with cost/profit calculation  
-5. Impovement in styles and content of the website.
-6. Domain Needs to be purchased.
-7. Free Tier server is slow. Upgrading to a better Plan is recommended.
-8. Android App needs to be published on Google Play Store (Optional)
-
----
