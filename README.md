@@ -1,4 +1,4 @@
-![Diagram](./Diagram.jpg)
+![Diagram](./flow.png)
 # Documentation Of Work
 
 **Date:** 28-06-2025  
