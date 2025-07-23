@@ -7,7 +7,8 @@ import AddMachineryDialog from '../components/AddMachineryDialog';
 import AddEmployeeDialog from '../components/AddEmployeeDialog';
 import MaterialDialog from '../components/Material';
 import AddMaterialUsageDialog from '../components/AddMaterialUsageDialog';
-
+import AddObjectiveDialog from '../components/AddObjectiveDialog';
+import UpdateProgressDialog from '../components/UpdateProgressDialog';
 
 import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
 import InventoryIcon from '@mui/icons-material/Inventory';
@@ -34,6 +35,8 @@ export default function ProjectManagement() {
   const [updateMachineUsageDialogOpen, setUpdateMachineUsageDialogOpen] = React.useState(false);
   const [updateEmployeeAttendanceDialogOpen, setUpdateEmployeeAttendanceDialogOpen] = React.useState(false);
   const [updateDailyExpenseDialogOpen, setUpdateDailyExpenseDialogOpen] = React.useState(false);
+  const [addObjectiveDialogOpen, setAddObjectiveDialogOpen] = React.useState(false);
+  const [updateProgressDialogOpen, setUpdateProgressDialogOpen] = React.useState(false);
 
   // Fetch activities from backend
   const [recentActivities, setRecentActivities] = React.useState([]);
@@ -225,6 +228,15 @@ export default function ProjectManagement() {
               <Button fullWidth variant="outlined" color="success" startIcon={<CurrencyRupeeIcon />} onClick={handleUpdateDailyExpense}>
                 Update Daily Expense
               </Button>
+              <Button
+                fullWidth
+                variant="outlined"
+                color="info"
+                startIcon={<AccessTimeIcon />}
+                onClick={() => setUpdateProgressDialogOpen(true)}
+              >
+                Update Daily Progress
+              </Button>
             </Stack>
           </Paper>
 
@@ -257,6 +269,15 @@ export default function ProjectManagement() {
               </Button>
               <Button fullWidth variant="contained" color="success" startIcon={<PersonAddIcon />} onClick={handleAddEmployeeAtSite}>
                 Add New Employee At Site
+              </Button>
+              <Button
+                fullWidth
+                variant="contained"
+                color="warning"
+                startIcon={<AccessTimeIcon />}
+                onClick={() => setAddObjectiveDialogOpen(true)}
+              >
+                Create Weekly Target
               </Button>
             </Stack>
           </Paper>
@@ -298,6 +319,24 @@ export default function ProjectManagement() {
         <UpdateDailyExpenseDialog
           open={updateDailyExpenseDialogOpen}
           onClose={() => setUpdateDailyExpenseDialogOpen(false)}
+        />
+        <AddObjectiveDialog
+          open={addObjectiveDialogOpen}
+          onClose={() => setAddObjectiveDialogOpen(false)}
+          projectId={project._id}
+          onSuccess={() => {
+            // Optionally refresh activities
+            // fetchActivities();
+          }}
+        />
+        <UpdateProgressDialog
+          open={updateProgressDialogOpen}
+          onClose={() => setUpdateProgressDialogOpen(false)}
+          projectId={project._id}
+          onSuccess={() => {
+            // Optionally refresh activities
+            // fetchActivities();
+          }}
         />
       </Box>
     </div>
